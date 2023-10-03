@@ -10,4 +10,14 @@ class AdminController extends Controller
     {
         return view('admin.page.login');
     }
+
+    public function index()
+    {
+        return view('admin.main');
+    }
+
+    public function catalog()
+    {
+        return view('admin.layout.catalog');
+    }
 }

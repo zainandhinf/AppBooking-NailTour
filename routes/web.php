@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/loginAdmin', [AdminController::class, 'loginAdmin']);
+Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/catalog', [AdminController::class, 'catalog']);
