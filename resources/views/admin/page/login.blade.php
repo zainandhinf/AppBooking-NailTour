@@ -24,12 +24,12 @@
 
             <form class="login-form">
                 <div class="form-control">
-                    <input type="text" placeholder="Username">
-                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Username" required>
+                    <i class="fas fa-user"></i>
                 </div>
                 <div class="form-control">
-                    <input type="password" placeholder="Password">
-                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Password" required>
+                    <i class="fas fa-lock"></i>
                 </div>
 
                 <button class="submit">Login</button>

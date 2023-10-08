@@ -7,11 +7,10 @@
 }
 
 body {
-    min-height: 100px;
+    min-height: 100vh;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* overflow: hidden; */
 }
 
 section {
@@ -20,25 +19,26 @@ section {
     align-items: center;
 }
 
+section.side {
+    background: url(../img/bk.png) no-repeat;
+    background-size: 100% 102%;
+}
+
 .side img {
-    width: 50%;
-    max-width: 50%;
+    width: 80%;
+    max-width: 80%;
 }
 
 .login-container {
     max-width: 450px;
-    height: 100vh;
-    /* padding: 24px; */
-    padding: 15px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1DE3E4;
 }
 
 .title {
     text-transform: uppercase;
-    /* font-size: 3em; */
     font-size: 3em;
     font-weight: bold;
     text-align: center;
@@ -48,7 +48,7 @@ section {
 .separator {
     width: 150px;
     height: 4px;
-    background-color: #27A4DC;
+    background-color: #21A3DF;
     margin: 24px;
 }
 
@@ -98,7 +98,7 @@ input~i {
 }
 
 input:focus~i {
-    color: #27A4DC;
+    color: #21A3DF;
 }
 
 button.submit {
@@ -108,7 +108,7 @@ button.submit {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: bold;
-    background-image: linear-gradient(to right, #1DE3E4, #27A4DC);
+    background-image: linear-gradient(to right, #21A3DF, #8b33c5);
     cursor: pointer;
     transition: opacity 0.4s;
 }
