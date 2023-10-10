@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <title>Login | Admin</title>
 </head>
 
@@ -22,21 +23,31 @@
             <p class="welcome-message">Please, provide login credential to proceed and have access to all our services
             </p>
 
-            <form class="login-form">
+            @if (session()->has('logerror'))
+                <div class="alert alert-danger alert-dimissible fade show" role="alert">
+                    {{ session('logerror') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <form action="/loginAdmin" method="post" class="login-form">
+                @csrf
                 <div class="form-control">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" placeholder="Username" name="username" required>
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="form-control">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Password" name="password" required>
                     <i class="fas fa-lock"></i>
                 </div>
 
-                <button class="submit">Login</button>
+                <button class="submit" type="submit">Login</button>
             </form>
         </div>
     </section>
 
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
