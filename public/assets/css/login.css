@@ -22,6 +22,7 @@ section {
 section.side {
     background: url(../img/bk.png) no-repeat;
     background-size: 100% 102%;
+    /* background-color: #21A3DF; */
 }
 
 .side img {
@@ -39,7 +40,7 @@ section.side {
 
 .title {
     text-transform: uppercase;
-    font-size: 3em;
+    font-size: 2em;
     font-weight: bold;
     text-align: center;
     letter-spacing: 1px;
@@ -56,8 +57,9 @@ section.side {
     text-align: center;
     font-size: 1.1em;
     line-height: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     color: #696969;
+    font-weight: bold;
 }
 
 .login-form {
@@ -126,7 +128,12 @@ button.submit:hover {
         align-items: center;
     }
 
-    .side {
+    .main {
+        background: url(../img/bk.png) no-repeat;
+        background-size: 100% 102%;
+    }
+
+    .side img {
         display: none;
     }
 }

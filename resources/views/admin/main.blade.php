@@ -15,13 +15,14 @@
     @include('admin.layout.partials.sidebar')
 
     <div class="content">
-        @include('admin.layout.partials.navbar')
+        {{-- @include('admin.layout.partials.navbar') --}}
 
         @yield('content')
     </div>
 
 
     <script src="assets/js/admin.js"></script>
+    <script src="assets/js/sidebar.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 

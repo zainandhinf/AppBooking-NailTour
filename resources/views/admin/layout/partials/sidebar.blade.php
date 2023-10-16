@@ -1,22 +1,97 @@
-<div class="sidebar">
-    <a href="#" class="logo">
-        <i class='bx bx-code-alt'></i>
-        <div class="logo-name"><span>Asmr</span>Prog</div>
-    </a>
-    <ul class="side-menu">
-        <li class="active"><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
-        <li><a href="/catalog"><i class='bx bx-store-alt'></i>Catalog</a></li>
-        {{-- <li><a href="#"><i class='bx bx-analyse'></i>Analytics</a></li>
-        <li><a href="#"><i class='bx bx-message-square-dots'></i>Tickets</a></li>
-        <li><a href="#"><i class='bx bx-group'></i>Users</a></li>
-        <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li> --}}
-    </ul>
-    <ul class="side-menu">
-        <li>
-            <a href="#" class="logout">
-                <i class='bx bx-log-out-circle'></i>
-                Logout
-            </a>
-        </li>
-    </ul>
+<div class="custom-sidebar">
+    <div class="top">
+        <div class="logo">
+            <i class="fa-solid fa-bars"></i>
+            <span>Test</span>
+        </div>
+        <i class="fa-solid fa-bars" id="btn"></i>
+    </div>
+    <div class="user">
+        <img src="assets/img/user.jpg" alt="" class="user-img">
+        <div class="mt-3">
+            <p class="bold mb-0">Clint B.</p>
+            <p>Admin</p>
+        </div>
+    </div>
+    <div class="a">
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Data</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-igloo"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="container">
+        <h1>Test</h1>
+        <h2>Right Side</h2>
+    </div>
 </div>

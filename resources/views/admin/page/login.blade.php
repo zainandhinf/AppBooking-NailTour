@@ -13,13 +13,13 @@
 
 <body>
     <section class="side">
-        <img src="assets/img/login.svg" alt="">
+        <img src="assets/img/login.svg" alt="" class="img-side">
     </section>
 
     <section class="main">
         <div class="login-container">
-            <p class="title">Welcome back</p>
-            <div class="separator"></div>
+            <p class="title">LOGIN</p>
+            <div class="separator mt-0"></div>
             <p class="welcome-message">Please, provide login credential to proceed and have access to all our services
             </p>
 

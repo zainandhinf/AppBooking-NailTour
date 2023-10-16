@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
 
@@ -20,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/loginAdmin', [AdminController::class, 'loginAdmin']);
-Route::post('/loginAdmin', [AdminController::class, 'authenticate']);
+Route::post('/loginAdmin', [LoginController::class, 'authenticate']);
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/catalog', [AdminController::class, 'catalog']);
 
