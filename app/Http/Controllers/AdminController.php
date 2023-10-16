@@ -17,10 +17,10 @@ class AdminController extends Controller
         return view('admin.main');
     }
 
-    public function catalog()
+    public function dashboard()
     {
-        return view('admin.layout.catalog');
+        return view('admin.layout.dashboard');
     }
 
-    
+
 }

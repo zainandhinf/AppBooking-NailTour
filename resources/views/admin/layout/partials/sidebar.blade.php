@@ -13,10 +13,10 @@
             <p>Admin</p>
         </div>
     </div>
-    <div class="a">
-        <ul class="list-unstyled">
+    <div>
+        <ul class="list-unstyled mt-4">
             <li>
-                <a href="#">
+                <a href="/dashboardadmin">
                     <i class="fa-solid fa-igloo"></i>
                     <span class="nav-item">Dashboard</span>
                 </a>
@@ -77,21 +77,5 @@
                 <span class="tooltip">Dashboard</span>
             </li>
         </ul>
-        <ul class="list-unstyled">
-            <li>
-                <a href="#">
-                    <i class="fa-solid fa-igloo"></i>
-                    <span class="nav-item">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="main-content">
-    <div class="container">
-        <h1>Test</h1>
-        <h2>Right Side</h2>
     </div>
 </div>

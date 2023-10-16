@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::get('/loginAdmin', [AdminController::class, 'loginAdmin']);
 Route::post('/loginAdmin', [LoginController::class, 'authenticate']);
 Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/catalog', [AdminController::class, 'catalog']);
+Route::get('/dashboardadmin', [AdminController::class, 'dashboard']);
 
 
 Route::group(['middleware' => 'admin'], function () {

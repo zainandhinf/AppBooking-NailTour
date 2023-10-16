@@ -1,5 +1,5 @@
-<nav>
-    <i class='fa-solid fa-bars'></i>
+<header>
+    {{-- <i class='fa-solid fa-bars'></i>
     <form action="#">
         <div class="form-input">
             <input type="search" placeholder="Search...">
@@ -14,5 +14,20 @@
     </a>
     <a href="#" class="profile">
         <img src="images/logo.png">
-    </a>
-</nav>
+    </a> --}}
+    <p>
+        Dashboard
+    </p>
+
+    {{-- <div class="user-wrapper">
+        <img src="assets/img/user.jpg" width="40px" height="40px" alt="">
+        <div>
+            <p>
+                zainandhi
+            </p>
+            <small>
+                Admin
+            </small>
+        </div>
+    </div> --}}
+</header>
