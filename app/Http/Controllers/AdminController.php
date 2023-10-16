@@ -19,7 +19,24 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('admin.layout.dashboard');
+        return view(
+            'admin.layout.dashboard',
+            [
+                "title" => "Dashboard"
+
+            ]
+        );
+    }
+
+    public function catalog()
+    {
+        return view(
+            'admin.layout.catalog',
+            [
+                "title" => "Catalog"
+
+            ]
+        );
     }
 
 

@@ -20,10 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/loginAdmin', [AdminController::class, 'loginAdmin']);
-Route::post('/loginAdmin', [LoginController::class, 'authenticate']);
+
+// page admin
 Route::get('/admin', [AdminController::class, 'index']);
 Route::get('/dashboardadmin', [AdminController::class, 'dashboard']);
+Route::get('/catalogadmin', [AdminController::class, 'catalog']);
+//
+Route::get('/loginAdmin', [AdminController::class, 'loginAdmin']);
+Route::post('/loginAdmin', [LoginController::class, 'authenticate']);
 
 
 Route::group(['middleware' => 'admin'], function () {

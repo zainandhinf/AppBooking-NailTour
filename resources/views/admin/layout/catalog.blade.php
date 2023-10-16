@@ -3,7 +3,7 @@
 @section('content')
     <!-- Modal -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary mt-4 ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Catalog Data
     </button>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,46 +46,40 @@
     {{-- end modal --}}
 
     {{-- tabel --}}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">ID</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Jenis Kelamin</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{-- @foreach ($nis as $index => $n) --}}
-            @php
-                $no = 1;
-            @endphp
-            {{-- @foreach (\App\Models\siswa::query()->get() as $siswas) --}}
-            {{-- @foreach ($siswa as $siswas) --}}
-            <tr>
-                <td scope="row">{{ $no++ }}</th>
-                <td>haha</td>
-                <td>haha</td>
-                <td>haha</td>
-                {{-- <th scope="row">{{ $index + 1 }}</th>
-                    <td>{{ $n }}</td>
-                    <td>{{ $nama[$index] }}</td>
-                    <td>{{ $jk[$index] }}</td> --}}
-                {{-- <th scope="row">{{ $no++ }}</th>
-                <td>{{ $siswas->nis }}</td>
-                <td>{{ $siswas->nama }}</td>
-                <td>{{ $siswas->jenis_kelamin }}</td>
-                <td>
-                    <a type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal1{{ $siswas->id }}">
-                        Edit
-                    </a>
-                    <a href="../action/aksi_hapus_petugas.php?id_petugas={{ $siswas->id }}"
-                        onclick="return confirm('Yakin Ingin Menghapus Data?')" class="btn btn-danger">Hapus</a>
-                </td> --}}
-            </tr>
-            {{-- @endforeach --}}
-        </tbody>
-    </table>
+    <div class="ms-4 mt-2">
+        <table class="table" id="data-tables">
+            <thead>
+                <tr>
+                    <th>nama</th>
+                    <th>kelas</th>
+                    <th>jurusan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Zainandhi</td>
+                    <td>11 RPL A</td>
+                    <td>Rekayasa Perangkat Lunak</td>
+                </tr>
+                <tr>
+                    <td>Arya</td>
+                    <td>11 RPL A</td>
+                    <td>Rekayasa Perangkat Lunak</td>
+                </tr>
+                <tr>
+                    <td>Ridho</td>
+                    <td>11 RPL A</td>
+                    <td>Rekayasa Perangkat Lunak</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     {{-- end tabel --}}
+
+
+    <script>
+        $(document).ready(function() {
+            $('#data-tables').DataTable();
+        });
+    </script>
 @endsection

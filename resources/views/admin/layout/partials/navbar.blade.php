@@ -16,7 +16,7 @@
         <img src="images/logo.png">
     </a> --}}
     <p>
-        Dashboard
+        {{ $title }}
     </p>
 
     {{-- <div class="user-wrapper">

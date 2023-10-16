@@ -25,11 +25,11 @@
         </ul>
         <ul class="list-unstyled">
             <li>
-                <a href="#">
-                    <i class="fa-solid fa-igloo"></i>
-                    <span class="nav-item">Dashboard</span>
+                <a href="/catalogadmin">
+                    <i class="fa-solid fa-database ms-3"></i>
+                    <span class="nav-item">Catalog</span>
                 </a>
-                <span class="tooltip">Data</span>
+                <span class="tooltip">Catalog</span>
             </li>
         </ul>
         <ul class="list-unstyled">
