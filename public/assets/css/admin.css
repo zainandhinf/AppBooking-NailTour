@@ -140,6 +140,14 @@ ul {
     line-height: 40px;
 }
 
+.custom-sidebar ul li a span {
+    display: none;
+}
+
+.custom-sidebar.active ul li a span {
+    display: block;
+}
+
 .custom-sidebar .nav-item {
     opacity: 0;
 }
@@ -148,8 +156,13 @@ ul {
     opacity: 1;
 }
 
-.tooltip {
+.toolhint {
+    display: none;
+}
+
+.toolhintshow {
     position: absolute;
+    margin-left: 12px;
     background-color: #12171e;
     color: #fff;
     /* background-color: #12171e; */
@@ -161,14 +174,13 @@ ul {
     padding: .4rem 1.2rem;
     line-height: 1.8rem;
     z-index: 20;
-    opacity: 0;
 }
 
-.custom-sidebar ul li:hover .tooltip {
+.custom-sidebar ul li:hover .toolhint {
     opacity: 1;
 }
 
-.custom-sidebar.active ul li .tooltip {
+.custom-sidebar.active ul li .toolhint {
     display: none;
 }
 

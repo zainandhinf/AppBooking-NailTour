@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use App\Models\Admin;
 
@@ -22,17 +23,19 @@ Route::get('/', function () {
 
 
 // page admin
-Route::get('/admin', [AdminController::class, 'index']);
-Route::get('/dashboardadmin', [AdminController::class, 'dashboard']);
-Route::get('/catalogadmin', [AdminController::class, 'catalog']);
+Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
+Route::get('/dashboardadmin', [AdminController::class, 'dashboard'])->middleware('auth');
+Route::get('/catalogadmin', [AdminController::class, 'catalog'])->middleware('auth');
 //
-Route::get('/loginAdmin', [AdminController::class, 'loginAdmin']);
+
+Route::get('/loginAdmin', [AdminController::class, 'loginAdmin'])->name('login')->middleware('guest');
 Route::post('/loginAdmin', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::group(['middleware' => 'admin'], function () {
     // Rute-rute yang perlu dilindungi
-    Route::get('/admin/dashboard', 'AdminController@dashboard');
+    Route::get('/admin/dashboard', 'AdminController@dashboard')->middleware('auth');
     // Tambahkan rute lainnya yang perlu dilindungi
 });
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>{{ $title }}</title>
     <link rel="stylesheet" href="assets/css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -31,7 +31,7 @@
     <script src="assets/js/sidebar.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script>
-    {{-- <script src="assets/js/jquery-3.7.1.min.js"></script> --}}
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
 </body>
 
 </html>
