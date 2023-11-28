@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <h1>ini dashboard</h1>
-        <table class="table" id="data-tables">
+        <table class="display" id="data-tables">
             <thead>
                 <tr>
                     <th>nama</th>

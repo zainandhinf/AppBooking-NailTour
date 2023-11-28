@@ -12,10 +12,11 @@ return new class extends Migration {
     {
         Schema::create('head_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('id_user');
+            $table->string('no_trans')->unique();
+            // $table->string('id_user');
             $table->date('date');
-            $table->string('id_catalog');
-            $table->string('qty');
+            // $table->string('id_catalog');
+            // $table->string('qty');
             $table->string('status');
             $table->timestamps();
         });

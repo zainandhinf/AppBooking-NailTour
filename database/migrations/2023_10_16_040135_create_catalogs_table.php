@@ -13,11 +13,12 @@ return new class extends Migration {
         Schema::create('catalogs', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique()->nullable();
             $table->string('location');
             $table->string('price');
-            $table->string('includes');
-            $table->string('description');
-            $table->string('pictures');
+            $table->text('description');
+            $table->string('main_image')->nullable();
+            $table->string('categories');
             $table->timestamps();
         });
     }

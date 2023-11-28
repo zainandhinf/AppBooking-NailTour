@@ -30,7 +30,7 @@
                 </div>
             @endif
 
-            <form action="/loginAdmin" method="post" class="login-form">
+            <form action="/login" method="post" class="login-form">
                 @csrf
                 <div class="form-control">
                     <input type="text" placeholder="Username" name="username" required>

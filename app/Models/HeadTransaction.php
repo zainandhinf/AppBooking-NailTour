@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class HeadTransaction extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['no_trans', 'date', 'status'];
 }

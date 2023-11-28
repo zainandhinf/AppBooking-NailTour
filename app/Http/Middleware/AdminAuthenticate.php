@@ -22,6 +22,6 @@ class AdminAuthenticate
         }
 
         // Jika bukan admin, Anda dapat mengarahkannya ke halaman lain atau memberikan respons sesuai kebijakan Anda
-        return redirect('/adminLogin'); // Ganti dengan URL atau tindakan lain yang sesuai dengan kebijakan Anda.
+        return redirect('/login'); // Ganti dengan URL atau tindakan lain yang sesuai dengan kebijakan Anda.
     }
 }

@@ -2,6 +2,7 @@ let btn = document.querySelector('#btn');
 let sidebar = document.querySelector('.custom-sidebar');
 let header = document.querySelector('header');
 let main = document.querySelector('main');
+let toolhints = document.querySelectorAll('.toolhint');
 // let li = document.querySelector('#dashboard');
 // let spanDash = document.querySelector('#toolhint1');
 
@@ -10,6 +11,17 @@ btn.onclick = function () {
     header.classList.toggle('active-navbar');
     main.classList.toggle('active-main');
     console.log(sidebar);
+
+    // Tambahkan logika untuk menyembunyikan toolhint saat sidebar aktif
+    if (sidebar.classList.contains('active')) {
+        toolhints.forEach(toolhint => {
+            toolhint.style.display = 'none';
+        });
+    } else {
+        toolhints.forEach(toolhint => {
+            toolhint.style.display = ''; // Kembalikan ke nilai default (biasanya 'block')
+        });
+    }
 };
 
 // function showToolhint1(element) {
@@ -27,7 +39,7 @@ btn.onclick = function () {
 // }
 
 function showToolhint1(element) {
-    var toolhint = document.querySelector('#toolhint');
+    var toolhint = document.querySelector('#toolhint1');
     // toolhint.textContent = "Toolhintshow";
     toolhint.classList.add("toolhintshow");
     toolhint.classList.remove("toolhint");
@@ -35,7 +47,7 @@ function showToolhint1(element) {
 }
 
 function hideToolhint1(element) {
-    var toolhint = document.querySelector('#toolhint');
+    var toolhint = document.querySelector('#toolhint1');
     // toolhint.textContent = "Dashboard";
     toolhint.classList.remove("toolhintshow");
     toolhint.classList.add("toolhint");
@@ -52,6 +64,54 @@ function showToolhint2(element) {
 
 function hideToolhint2(element) {
     var toolhint = document.querySelector('#toolhint2');
+    // toolhint.textContent = "Dashboard";
+    toolhint.classList.remove("toolhintshow");
+    toolhint.classList.add("toolhint");
+    console.log(toolhint);
+}
+
+function showToolhint3(element) {
+    var toolhint = document.querySelector('#toolhint3');
+    // toolhint.textContent = "Toolhintshow";
+    toolhint.classList.add("toolhintshow");
+    toolhint.classList.remove("toolhint");
+    console.log(toolhint);
+}
+
+function hideToolhint3(element) {
+    var toolhint = document.querySelector('#toolhint3');
+    // toolhint.textContent = "Dashboard";
+    toolhint.classList.remove("toolhintshow");
+    toolhint.classList.add("toolhint");
+    console.log(toolhint);
+}
+
+function showToolhint4(element) {
+    var toolhint = document.querySelector('#toolhint4');
+    // toolhint.textContent = "Toolhintshow";
+    toolhint.classList.add("toolhintshow");
+    toolhint.classList.remove("toolhint");
+    console.log(toolhint);
+}
+
+function hideToolhint4(element) {
+    var toolhint = document.querySelector('#toolhint4');
+    // toolhint.textContent = "Dashboard";
+    toolhint.classList.remove("toolhintshow");
+    toolhint.classList.add("toolhint");
+    console.log(toolhint);
+}
+
+function showToolhint5(element) {
+    var toolhint = document.querySelector('#toolhint5');
+    // toolhint.textContent = "Toolhintshow";
+    toolhint.classList.add("toolhintshow");
+    toolhint.classList.remove("toolhint");
+    console.log(toolhint);
+}
+
+function hideToolhint5(element) {
+    var toolhint = document.querySelector('#toolhint5');
     // toolhint.textContent = "Dashboard";
     toolhint.classList.remove("toolhintshow");
     toolhint.classList.add("toolhint");

@@ -28,8 +28,10 @@ class LoginController extends Controller
 
             if ($user->role === 'admin') {
                 return redirect('/admin'); // Pengguna admin diarahkan ke halaman admin
+            } else if ($user->role === 'officer') {
+                return redirect('/officer'); // Pengguna officer diarahkan ke halaman officer
             } else {
-                return redirect('/'); // Pengguna dengan peran user diarahkan ke halaman user
+                return redirect('/home'); // Pengguna dengan peran user diarahkan ke halaman user
             }
         } else {
             // return back()->withErrors(['email' => 'Email atau kata sandi salah']);
@@ -45,6 +47,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/loginAdmin');
+        return redirect('/login');
     }
 }
