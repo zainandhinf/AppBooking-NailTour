@@ -106,6 +106,7 @@
                 <th>Transportation</th>
                 <th>Status</th>
                 <th>Payment</th>
+                {{-- <th>Total Payment</th> --}}
             </tr>
         </thead>
         @php
@@ -118,21 +119,34 @@
             //     ->where('head_transactions.status', '=', 'Deals')
             //     ->get();
         @endphp
-        @foreach ($data as $data1)
+        <tbody>
+            @foreach ($data as $data1)
+                <tr>
+                    <td scope="row">{{ $no++ }}</td>
+                    {{-- <td>{{ $province->id }}</td> --}}
+                    <td>{{ $data1->no_trans }}</td>
+                    <td>{{ $data1->date_head }}</td>
+                    <td>{{ $data1->username }}</td>
+                    <td>{{ $data1->name }}</td>
+                    <td>{{ $data1->id_catalog_detail }}</td>
+                    <td>{{ $data1->date1 }} until {{ $data1->date2 }}</td>
+                    <td>{{ $data1->adult_qty }}</td>
+                    <td>{{ $data1->child_qty }}</td>
+                    <td>{{ $data1->transportation }}</td>
+                    <td>Deal</td>
+                    <td>Finished</td>
+                    {{-- <td>Rp. {{ $data1->total_payment }}</td> --}}
+                </tr>
+        </tbody>
+        <tfoot>
             <tr>
-                <td scope="row">{{ $no++ }}</td>
-                {{-- <td>{{ $province->id }}</td> --}}
-                <td>{{ $data1->no_trans }}</td>
-                <td>{{ $data1->date_head }}</td>
-                <td>{{ $data1->username }}</td>
-                <td>{{ $data1->name }}</td>
-                <td>{{ $data1->id_catalog_detail }}</td>
-                <td>{{ $data1->date1 }} until {{ $data1->date2 }}</td>
-                <td>{{ $data1->adult_qty }}</td>
-                <td>{{ $data1->child_qty }}</td>
-                <td>{{ $data1->transportation }}</td>
-                <td>Deal</td>
-                <td>Finished</td>
+                <th colspan="11">Total Payment</th>
+                <th>Rp. {{ number_format($data1->total_payment, 0, ',', '.') }}</th>
+            </tr>
+        </tfoot>
+        @php
+            // dd($data1->total_payment);
+        @endphp
         @endforeach
     </table>
 </body>

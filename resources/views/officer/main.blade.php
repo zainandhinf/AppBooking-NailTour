@@ -259,6 +259,36 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script> --}}
+
+    <script>
+        function toggleDataDropdown() {
+            // console.log("berhasil");
+            var dataDropdown = document.getElementById('dataDropdown');
+            var dataDropdown2 = document.getElementById('dataDropdown2');
+
+            // Toggle display dari <ul> ketika tautan diklik
+            if (dataDropdown.style.display === 'block') {
+                dataDropdown.style.display = 'none';
+            } else {
+                dataDropdown.style.display = 'block';
+                dataDropdown2.style.display = 'none';
+            }
+        }
+
+        function toggleDataDropdown2() {
+            // console.log("berhasil");
+            var dataDropdown = document.getElementById('dataDropdown2');
+            var dataDropdown2 = document.getElementById('dataDropdown');
+
+            // Toggle display dari <ul> ketika tautan diklik
+            if (dataDropdown.style.display === 'block') {
+                dataDropdown.style.display = 'none';
+            } else {
+                dataDropdown.style.display = 'block';
+                dataDropdown2.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 
 </html>

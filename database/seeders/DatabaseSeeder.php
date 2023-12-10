@@ -31,7 +31,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Zainandhi',
             'email' => 'zainandhi@gmail.com',
             'password' => bcrypt('111'),
-            'role' => 'admin'
+            'role' => 'admin',
+            'no_phone' => null,
+            'photo_profile' => 'photoprofile/user.png'
         ]);
 
         User::create([
@@ -39,7 +41,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Fathurrohman',
             'email' => 'fathurrohman@gmail.com',
             'password' => bcrypt('111'),
-            'role' => 'user'
+            'role' => 'user',
+            'no_phone' => null,
+            'photo_profile' => 'photoprofile/user.png'
         ]);
 
         User::create([
@@ -47,7 +51,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Zainandhi',
             'email' => 'zain@gmail.com',
             'password' => bcrypt('111'),
-            'role' => 'officer'
+            'role' => 'officer',
+            'no_phone' => null,
+            'photo_profile' => 'photoprofile/user.png'
         ]);
 
         Provinces::create([

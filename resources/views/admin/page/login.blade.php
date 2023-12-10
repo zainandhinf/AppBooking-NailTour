@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <title>Login | Admin</title>
+    <title>Login | NailTour</title>
 </head>
 
 <body>
@@ -22,7 +22,12 @@
             <div class="separator mt-0"></div>
             <p class="welcome-message">Please, provide login credential to proceed and have access to all our services
             </p>
-
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dimissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             @if (session()->has('logerror'))
                 <div class="alert alert-danger alert-dimissible fade show" role="alert">
                     {{ session('logerror') }}
@@ -43,6 +48,7 @@
 
                 <button class="submit" type="submit">Login</button>
             </form>
+            <p>Don't have an account yet? <a class="text-decoration-none" href="/signup">Sign Up</a></p>
         </div>
     </section>
 

@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('file')->nullable();
             $table->foreignId('transaction_id');
             $table->foreignId('user_id');
+            $table->integer('total_payment')->nullable();
             $table->date('date');
             $table->timestamps();
         });

@@ -88,3 +88,149 @@ html, body {
 .image-container:hover .delete-button {
     display: inline-block;
 }
+
+/* .card-dashboard {
+    --primary-clr: #1C204B;
+    --dot-clr: #BBC0FF;
+    --play: hsl(195, 74%, 62%);
+    width: 200px;
+    height: 170px;
+    border-radius: 10px;
+}
+
+.card-dashboard {
+    font-family: "Arial";
+    color: #fff;
+    display: grid;
+    cursor: pointer;
+    grid-template-rows: 50px 1fr;
+}
+
+.card-dashboard:hover .img-section-dashboard {
+    transform: translateY(1em);
+}
+
+.card-desc-dashboard {
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    top: -10px;
+    display: grid;
+    gap: 10px;
+    background: var(--primary-clr);
+}
+
+.card-time-dashboard {
+    font-size: 1.7em;
+    font-weight: 500;
+}
+
+.img-section-dashboard {
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: hsl(195, 74%, 62%);
+}
+
+.card-header-dashboard {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.card-title-dashboard {
+    flex: 1;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.card-menu-dashboard {
+    display: flex;
+    gap: 4px;
+    margin-inline: auto;
+}
+
+.card-dashboard svg {
+    float: right;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.card-dashboard .dot-dashboard {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--dot-clr);
+}
+
+.card-dashboard .recent-dashboard {
+    line-height: 0;
+    font-size: 0.8em;
+} */
+
+.dashboard-head {
+    display: flex;
+}
+
+.card-dashboard {
+    width: 300px;
+    height: 140px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* text-align: center; */
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.card-dashboard h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+.card-dashboard h2 {
+    font-size: 24px;
+    color: #4caf50;
+    margin-bottom: 5px;
+}
+
+.card-dashboard p {
+    font-size: 14px;
+    color: #777;
+}
+
+.card-dashboard i {
+    font-size: 20px;
+    color: #fff;
+}
+
+.icon-dashboard {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    /* margin-right: 40px; */
+    /* margin: 0px 10px 0px 0px; */
+    /* background-color: #4caf50; */
+}
+
+.card-officer .icon-dashboard {
+    background-color: #FF569C;
+}
+
+.card-user .icon-dashboard {
+    background-color: #5E5FF7;
+}
+
+.card-catalog .icon-dashboard {
+    background-color: #05D2FF;
+}
+
+.card-transaction .icon-dashboard {
+    background-color: #ED9210;
+}

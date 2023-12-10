@@ -1,9 +1,9 @@
-@extends('admin.main')
+@extends('officer.main')
 
 @section('content')
     {{-- <div id="card" class="container card shadow p-4 ms-2 me-2 mt-3 position-fixed"> --}}
     <!-- Button trigger modal -->
-    <button onclick="ShowModal1()" type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal"
+    {{-- <button onclick="ShowModal1()" type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal"
         data-bs-target="#exampleModal">
         Add Catalog National
     </button>
@@ -11,19 +11,21 @@
     <button onclick="ShowModal3()" type="button" class="btn btn-primary mt-2 ms-2" data-bs-toggle="modal"
         data-bs-target="#exampleModalinternational">
         Add Catalog International
-    </button>
+    </button> --}}
     {{-- <select id="cbCity" class="js-example-basic-single" name="state">
             <option value="">Choose...</option>
         </select> --}}
     {{-- <a href="/admin-catalog/create" class="btn btn-primary mt-4 ms-4 me-4">
             Add Catalog Data
         </a> --}}
-
-
-
+    {{-- @if (session()->has('success'))
+        <div class="alert alert-success mt-1 mb-1" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif --}}
     {{-- tabel --}}
     <div class="mt-2 table-responsive">
-        <table class="display" id="data-tables">
+        <table class="table table-striped" style="width:100%" id="data-tables">
             <thead>
                 <tr>
                     <th>Image</th>
@@ -33,9 +35,12 @@
                     <th>Description</th>
                     <th>Categories</th>
                     <th>Image Catalog</th>
-                    <th>Action</th>
+                    {{-- <th>Action</th> --}}
                 </tr>
             </thead>
+            {{-- @php
+                dd($catalogs);
+            @endphp --}}
             <tbody>
                 @foreach ($catalogs as $catalog)
                     <tr>
@@ -143,24 +148,24 @@
                             </div> --}}
 
 
-                            <a onclick="ShowModalImage('{{ $catalog->id }}')" type="button" class="btn btn-primary mb-1"
+                            {{-- <a onclick="ShowModalImage('{{ $catalog->id }}')" type="button" class="btn btn-primary mb-1 mt-1"
                                 data-bs-toggle="modal" data-bs-target="#uploadimageModal{{ $catalog->id }}">
-                                <i class="fa-solid fa-upload"></i>
-                                {{-- <span>Upload Image</span> --}}
-                            </a>
+                                <i class="fa-solid fa-upload"></i> --}}
+                            {{-- <span>Upload Image</span> --}}
+                            {{-- </a> --}}
                             <a onclick="ShowModalImageDelete('{{ $catalog->id }}')" type="button"
-                                class="btn btn-danger d-inline" data-bs-toggle="modal"
+                                class="btn btn-primary d-inline" data-bs-toggle="modal"
                                 data-bs-target="#deleteimageModal{{ $catalog->id }}">
-                                <i class="fa-solid fa-trash"></i>
+                                <i class="fa-solid fa-eye"></i>
                                 {{-- <span>Delete Image</span> --}}
                             </a>
 
 
 
                         </td>
-                        <td class=>
+                        {{-- <td class=>
                             <a id="edit" onclick="ShowModal2('{{ $catalog->id }}')" type="button"
-                                class="btn btn-primary mb-1" data-bs-toggle="modal"
+                                class="btn btn-primary mb-1 mt-1" data-bs-toggle="modal"
                                 data-bs-target="#editModal{{ $catalog->id }}">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
@@ -175,7 +180,7 @@
                                     <i class="fa-solid fa-trash "></i>
                                 </button>
                             </form>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>
@@ -187,7 +192,7 @@
 
     <!-- Modal for catalog national-->
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -212,9 +217,9 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="input-group">
-                            {{-- <span class="input-group-text" id="basic-addon1">Slug</span> --}}
-                            <input type="hidden"
+                        <div class="input-group"> --}}
+    {{-- <span class="input-group-text" id="basic-addon1">Slug</span> --}}
+    {{-- <input type="hidden"
                                 class="form-control @error('slug')
                             is-invalid
                         @enderror"
@@ -226,8 +231,8 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="">
-                            {{-- <span class="input-group-text" id="basic-addon1">Location</span>
+                        <div class=""> --}}
+    {{-- <span class="input-group-text" id="basic-addon1">Location</span>
                             <input type="text"
                                 class="form-control @error('location')
                             is-invalid
@@ -240,15 +245,15 @@
                                 </div>
                             @enderror
                             <label class="input-group-text" for="inputGroupSelect01">Location</label> --}}
-                            <div style="width: 100%; height: 40px;" class="">
+    {{-- <div style="width: 100%; height: 40px;" class="">
                                 <select style="width: 100%;" id="cbCityInput"
                                     class="js-example-basic-single select1 col-9 @error('location') is-invalid @enderror"
                                     name="location">
                                     <option value="">Choose...</option>
                                     @foreach ($cities as $city)
-                                        <option value="{{ $city->name }}">{{ $city->name }}</option>
-                                        {{-- <option value="International">International</option> --}}
-                                    @endforeach
+                                        <option value="{{ $city->name }}">{{ $city->name }}</option> --}}
+    {{-- <option value="International">International</option> --}}
+    {{-- @endforeach
                                 </select>
                                 @error('location')
                                     <div class="invalid-feedback">
@@ -256,8 +261,8 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        {{-- <div class="input-group mb-3">
+                        </div> --}}
+    {{-- <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSelect01">Jenis Kelamin</label>
                             <select class="form-select" id="inputGroupSelect01" name="jk">
                                 <option selected>Choose...</option>
@@ -265,7 +270,7 @@
                                 <option value="P">Perempuan</option>
                             </select>
                         </div> --}}
-                        <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span
                                 class="input-group-text @error('price')
                                 mt-3
@@ -275,7 +280,7 @@
                             <input id="price" type="text"
                                 class="form-control @error('price')
                             is-invalid
-                        @enderror @error('location')
+                        @enderror @error('price')
                         mt-3
                     @enderror"
                                 placeholder=" Starting price..." aria-label="Price" aria-describedby="basic-addon1"
@@ -299,8 +304,8 @@
                         @enderror @error('main_image')
                         mt-3
                     @enderror"
-                                placeholder=" Choose main image..." aria-label="Main_image"
-                                aria-describedby="basic-addon1" name="main_image" onchange="previewImage()" required>
+                                placeholder=" Choose main image..." aria-label="Main_image" aria-describedby="basic-addon1"
+                                name="main_image" onchange="previewImage()" required>
                             @error('main_image')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -319,8 +324,8 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
-                        {{-- <div class="input-group mb-3">
+                        </div> --}}
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Description</span>
                             <input type="text"
                                 class="form-control @error('description')
@@ -334,15 +339,15 @@
                                 </div>
                             @enderror
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Categories</span> --}}
-                        {{-- <input type="text"
+    {{-- <input type="text"
                                     class="form-control @error('categories')
                             is-invalid
                         @enderror"
                                     placeholder="Categories" aria-label="Categories" aria-describedby="basic-addon1"
                                     name="include"> --}}
-                        {{-- <select
+    {{-- <select
                                 class="form-select @error('categories')
                                 is-invalid
                             @enderror"
@@ -356,17 +361,17 @@
                                 </div>
                             @enderror
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Pictures</span>
                             <input type="file" class="form-control" placeholder="Pictures" aria-label="Pictures"
                                 aria-describedby="basic-addon1" name="pictures">
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Price</span>
                             <input type="text" class="form-control" placeholder="Nama" aria-label="Username"
                                 aria-describedby="basic-addon1" name="nama">
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSelect01">Jenis Kelamin</label>
                             <select class="form-select" id="inputGroupSelect01" name="jk">
                                 <option selected>Choose...</option>
@@ -374,23 +379,23 @@
                                 <option value="P">Perempuan</option>
                             </select>
                         </div> --}}
-                </div>
+    {{-- </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
-                </div>
-                {{-- <button onclick="zzz()" type="button" class="btn btn-primary mt-4 ms-4 me-4" id="myButton">
+                </div> --}}
+    {{-- <button onclick="zzz()" type="button" class="btn btn-primary mt-4 ms-4 me-4" id="myButton">
                     zzzz
                 </button> --}}
-            </div>
+    {{-- </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end modal --}}
 
     <!-- Modal for catalog international -->
 
-    <div class="modal fade" id="exampleModalinternational" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="exampleModalinternational" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -415,9 +420,9 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="input-group">
-                            {{-- <span class="input-group-text" id="basic-addon1">Slug</span> --}}
-                            <input type="hidden"
+                        <div class="input-group"> --}}
+    {{-- <span class="input-group-text" id="basic-addon1">Slug</span> --}}
+    {{-- <input type="hidden"
                                 class="form-control @error('slug')
                             is-invalid
                         @enderror"
@@ -429,8 +434,8 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="">
-                            {{-- <span class="input-group-text" id="basic-addon1">Location</span>
+                        <div class=""> --}}
+    {{-- <span class="input-group-text" id="basic-addon1">Location</span>
                             <input type="text"
                                 class="form-control @error('location')
                             is-invalid
@@ -443,15 +448,15 @@
                                 </div>
                             @enderror
                             <label class="input-group-text" for="inputGroupSelect01">Location</label> --}}
-                            <div style="width: 100%; height: 40px;" class="">
+    {{-- <div style="width: 100%; height: 40px;" class="">
                                 <select style="width: 100%;" id="cbCityInput"
                                     class="js-example-basic-single select1international col-9 @error('location') is-invalid @enderror"
                                     name="location">
                                     <option value="">Choose...</option>
                                     @foreach ($countries as $country)
-                                        <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                        {{-- <option value="International">International</option> --}}
-                                    @endforeach
+                                        <option value="{{ $country->name }}">{{ $country->name }}</option> --}}
+    {{-- <option value="International">International</option> --}}
+    {{-- @endforeach
                                 </select>
                                 @error('location')
                                     <div class="invalid-feedback">
@@ -459,8 +464,8 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        {{-- <div class="input-group mb-3">
+                        </div> --}}
+    {{-- <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSelect01">Jenis Kelamin</label>
                             <select class="form-select" id="inputGroupSelect01" name="jk">
                                 <option selected>Choose...</option>
@@ -468,7 +473,7 @@
                                 <option value="P">Perempuan</option>
                             </select>
                         </div> --}}
-                        <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span
                                 class="input-group-text @error('price')
                                 mt-3
@@ -522,9 +527,9 @@
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Description</span>
                             <input type="text"
                                 class="form-control @error('description')
@@ -538,15 +543,15 @@
                                 </div>
                             @enderror
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Categories</span> --}}
-                        {{-- <input type="text"
+    {{-- <input type="text"
                                     class="form-control @error('categories')
                             is-invalid
                         @enderror"
                                     placeholder="Categories" aria-label="Categories" aria-describedby="basic-addon1"
                                     name="include"> --}}
-                        {{-- <select
+    {{-- <select
                                 class="form-select @error('categories')
                                 is-invalid
                             @enderror"
@@ -560,17 +565,17 @@
                                 </div>
                             @enderror
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Pictures</span>
                             <input type="file" class="form-control" placeholder="Pictures" aria-label="Pictures"
                                 aria-describedby="basic-addon1" name="pictures">
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Price</span>
                             <input type="text" class="form-control" placeholder="Nama" aria-label="Username"
                                 aria-describedby="basic-addon1" name="nama">
                         </div> --}}
-                        {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSelect01">Jenis Kelamin</label>
                             <select class="form-select" id="inputGroupSelect01" name="jk">
                                 <option selected>Choose...</option>
@@ -578,22 +583,22 @@
                                 <option value="P">Perempuan</option>
                             </select>
                         </div> --}}
-                </div>
+    {{-- </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
-                </div>
-                {{-- <button onclick="zzz()" type="button" class="btn btn-primary mt-4 ms-4 me-4" id="myButton">
+                </div> --}}
+    {{-- <button onclick="zzz()" type="button" class="btn btn-primary mt-4 ms-4 me-4" id="myButton">
                     zzzz
                 </button> --}}
-            </div>
+    {{-- </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end modal --}}
 
     <!-- Edit Modal -->
-    @foreach ($catalogs as $catalog)
+    {{-- @foreach ($catalogs as $catalog)
         <div class="modal fade Modal2" id="editModal{{ $catalog->id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" id="modal1">
@@ -602,9 +607,9 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Update Catalog Data</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" ari a-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        {{-- <form action="/updatecatalognational" method="post" enctype="multipart/form-data"> --}}
-                        <form action="/updatecatalog" method="post" enctype="multipart/form-data">
+                    <div class="modal-body"> --}}
+    {{-- <form action="/updatecatalognational" method="post" enctype="multipart/form-data"> --}}
+    {{-- <form action="/updatecatalog" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <input type="hidden" class="ppp" name="id_catalog" value="{{ $catalog->id }}">
@@ -637,8 +642,8 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="input-group mb-3">
-                                {{-- <span class="input-group-text" id="basic-addon1">Location</span>
+                            <div class="input-group mb-3"> --}}
+    {{-- <span class="input-group-text" id="basic-addon1">Location</span>
                                 <input type="text"
                                     class="form-control @error('location')
                             is-invalid
@@ -650,14 +655,14 @@
                                         {{ $message }}
                                     </div>
                                 @enderror --}}
-                                {{-- <label class="input-group-text" for="inputGroupSelect01">Location</label> --}}
-                                {{-- <div style="width: 100%; height: 40px;" class=""> --}}
-                                {{-- <select style="width: 100%;" id="cbCityEdit{{ $catalog->id }}"
+    {{-- <label class="input-group-text" for="inputGroupSelect01">Location</label> --}}
+    {{-- <div style="width: 100%; height: 40px;" class=""> --}}
+    {{-- <select style="width: 100%;" id="cbCityEdit{{ $catalog->id }}"
                                             class="js-example-basic-single col-9 @error('location') is-invalid @enderror"
                                             name="location">
                                             <option value="">Choose...</option>
                                         </select> --}}
-                                <span class="input-group-text" id="basic-addon1">Location</span>
+    {{-- <span class="input-group-text" id="basic-addon1">Location</span>
                                 <input value="{{ old('locationold', $catalog->location) }}" type="text"
                                     class="form-control @error('locationold')
                             is-invalid
@@ -668,11 +673,11 @@
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
-                                @enderror
-                                {{-- </div> --}}
-                            </div>
-                            <div class="">
-                                {{-- <span class="input-group-text" id="basic-addon1">Location</span>
+                                @enderror --}}
+    {{-- </div> --}}
+    {{-- </div>
+                            <div class=""> --}}
+    {{-- <span class="input-group-text" id="basic-addon1">Location</span>
                                     <input type="text"
                                         class="form-control @error('location')
                                 is-invalid
@@ -684,8 +689,8 @@
                                             {{ $message }}
                                         </div>
                                     @enderror --}}
-                                {{-- <label class="input-group-text" for="inputGroupSelect01">Location</label> --}}
-                                <div style="width: 100%; height: 40px;" class="">
+    {{-- <label class="input-group-text" for="inputGroupSelect01">Location</label> --}}
+    {{-- <div style="width: 100%; height: 40px;" class="">
                                     <input type="hidden" class="pp" value="cbCityEdit{{ $catalog->id }}">
                                     <select style="width: 100%;" id="cbCityEdit"
                                         class="js-example-basic-single select2{{ $catalog->id }} col-9 @error('location') is-invalid @enderror"
@@ -697,11 +702,12 @@
                                             @endforeach
                                         @else
                                             @foreach ($countries as $country)
-                                                <option value="{{ $country->name }}">{{ $country->name }}</option>
+                                                <option value="{{ $country->name }}">{{ $country->name }}
+                                                </option>
                                             @endforeach
-                                        @endif
-                                        {{-- <option value="International">International</option> --}}
-                                    </select>
+                                        @endif --}}
+    {{-- <option value="International">International</option> --}}
+    {{-- </select>
                                     @error('location')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -716,10 +722,11 @@
                             @enderror"
                                     id="basic-addon1">Starting price</span>
                                 <span class="input-group-text " id="basic-addon1">Rp</span>
-                                <input value="{{ old('price', $catalog->price) }}" id="price2" type="text"
+                                <input value="{{ old('price', $catalog->price) }}" id="price2{{ $catalog->id }}"
+                                    type="text"
                                     class="form-control @error('price')
                             is-invalid
-                        @enderror @error('location')
+                        @enderror @error('price')
                         mt-3
                     @enderror"
                                     placeholder=" Starting price..." aria-label="Price" aria-describedby="basic-addon1"
@@ -756,8 +763,8 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            {{-- <div class="input-group mb-3">
+                            </div> --}}
+    {{-- <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Description</span>
                                 <input value="{{ old('description', $catalog->description) }}" type="text"
                                     class="form-control @error('description')
@@ -771,7 +778,7 @@
                                     </div>
                                 @enderror
                             </div> --}}
-                            <div class="form-floating mb-3">
+    {{-- <div class="form-floating mb-3">
                                 <textarea
                                     class="form-control @error('description')
                                 is-invalid
@@ -783,16 +790,16 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            {{-- <div class="input-group mb-3">
+                            </div> --}}
+    {{-- <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Categories</span> --}}
-                            {{-- <input type="text"
+    {{-- <input type="text"
                                     class="form-control @error('categories')
                             is-invalid
                         @enderror"
                                     placeholder="Categories" aria-label="Categories" aria-describedby="basic-addon1"
                                     name="include"> --}}
-                            {{-- <select
+    {{-- <select
                                     class="form-select @error('categories')
                                 is-invalid
                             @enderror"
@@ -812,17 +819,17 @@
                                     </div>
                                 @enderror
                             </div> --}}
-                            {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Pictures</span>
                             <input type="file" class="form-control" placeholder="Pictures" aria-label="Pictures"
                                 aria-describedby="basic-addon1" name="pictures">
                         </div> --}}
-                            {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Price</span>
                             <input type="text" class="form-control" placeholder="Nama" aria-label="Username"
                                 aria-describedby="basic-addon1" name="nama">
                         </div> --}}
-                            {{-- <div class="input-group mb-3">
+    {{-- <div class="input-group mb-3">
                             <label class="input-group-text" for="inputGroupSelect01">Jenis Kelamin</label>
                             <select class="form-select" id="inputGroupSelect01" name="jk">
                                 <option selected>Choose...</option>
@@ -830,25 +837,25 @@
                                 <option value="P">Perempuan</option>
                             </select>
                         </div> --}}
-                    </div>
+    {{-- </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                         </form>
-                    </div>
-                    {{-- <button onclick="getModal2Value()" type="button" class="btn btn-primary mt-4 ms-4 me-4"
+                    </div> --}}
+    {{-- <button onclick="getModal2Value()" type="button" class="btn btn-primary mt-4 ms-4 me-4"
                         id="myButton">
                         zzzz
                     </button> --}}
-                </div>
+    {{-- </div>
             </div>
-        </div>
-        {{-- end modal --}}
-    @endforeach
+        </div> --}}
+    {{-- end modal --}}
+    {{-- @endforeach --}}
 
 
     <!-- Upload Image Catalog Modal -->
-    @foreach ($catalogs as $catalog)
+    {{-- @foreach ($catalogs as $catalog)
         <div class="modal fade Modal2" id="uploadimageModal{{ $catalog->id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" id="modal1">
@@ -869,9 +876,9 @@
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- end modal --}}
-    @endforeach
+        </div> --}}
+    {{-- end modal --}}
+    {{-- @endforeach --}}
 
     <!-- Delete Image Catalog Modal -->
     @foreach ($catalogs as $catalog)
@@ -900,24 +907,22 @@
                             </div>
                         @else
                             @foreach ($images as $imagecatalog)
-                                <div class="image-container" style="position: relative;">
+                                <div class="" style="position: relative;">
                                     {{-- <div class="bg-danger" style="width: 470px"> --}}
-                                    <img src="imagecatalog/{{ $imagecatalog->imagefile }}" alt=""
-                                        class="mt-2 mb-2" style="width: 470px;">
+                                    <img src="imagecatalog/{{ $imagecatalog->imagefile }}" alt="" class="mt-2 mb-2"
+                                        style="width: 470px;">
                                     {{-- <a href="{{ url('/file/' . $imagecatalog->imagefile) }}">Nama File</a> --}}
                                     {{-- </div> --}}
-                                    <form action="/deleteimagecatalog" class="delete-button" method="POST">
-                                        @method('delete')
-                                        @csrf
-                                        <input type="hidden" id="Modal2" name="id_image"
-                                            value="{{ $imagecatalog->id }}">
-                                        <input type="hidden" id="" name="id_catalog"
-                                            value="{{ $catalog->id }}">
-                                        <button class="btn btn-danger btn-lg d-inline"
-                                            onclick="return confirm('Are you sure you want to delete image?')">
-                                            <i class="fa-solid fa-trash "></i>
-                                        </button>
-                                    </form>
+                                    {{-- <form action="/deleteimagecatalog" class="delete-button" method="POST"> --}}
+                                    {{-- @method('delete') --}}
+                                    {{-- @csrf --}}
+                                    <input type="hidden" id="Modal2" name="id_image" value="{{ $imagecatalog->id }}">
+                                    <input type="hidden" id="" name="id_catalog" value="{{ $catalog->id }}">
+                                    {{-- <button class="btn btn-danger btn-lg d-inline"
+                                        onclick="return confirm('Are you sure you want to delete image?')">
+                                        <i class="fa-solid fa-trash "></i>
+                                    </button> --}}
+                                    {{-- </form> --}}
                                 </div>
                             @endforeach
                         @endif
@@ -936,6 +941,7 @@
 
 
     <script>
+        new DataTable('#example');
         // Drozone.option.dropzone = {
         //     maxFilesize: 12,
         //     renameFile: function(file){
@@ -1054,15 +1060,16 @@
         // });
 
 
-        $(document).ready(function() {
-            $('#data-tables').DataTable(
-                //     {
-                //     "pageLength": 4,
-                //     "scrollY": false,
-                //     "lengthChange": false
-                // }
-            );
-        });
+        // $(document).ready(function() {
+        //     $('#data-tables').DataTable(
+        //         //     {
+        //         //     "pageLength": 4,
+        //         //     "scrollY": false,
+        //         //     "lengthChange": false
+        //         // }
+        //     );
+        // });
+        new DataTable('#data-tables');
 
         $(document).ready(function() {
             $("#price").keyup(function() {
@@ -1073,14 +1080,7 @@
             })
         });
 
-        $(document).ready(function() {
-            $("#price2").keyup(function() {
-                $(this).maskNumber({
-                    integer: true,
-                    thousands: "."
-                })
-            })
-        });
+
 
         // // Dapatkan elemen <select> berdasarkan ID
         // const selectElement = document.getElementById('cbCity');
@@ -1127,7 +1127,7 @@
         //         });
         //     });
         // }
-        // var catalogData = @json($catalogs2);
+
 
         // // Panggil fungsi ini saat modal edit pertama kali ditampilkan
         // $('#exampleModal').on('show.bs.modal', function() {
@@ -1182,217 +1182,221 @@
 
         // Isi kedua elemen select dengan data kota
 
-        function ShowModal1() {
-            // const kotaData = data.map(provinsi => provinsi.kota).flat();
-            // isiSelect(select1, kotaData);
-            // var Modal2 = document.getElementById("Modal2").value;
-            $('#exampleModal').ready(function() {
-                $('.select1').select2({
-                    placeholder: 'Select an location...',
-                    dropdownParent: '#exampleModal'
-                });
-                const title = document.querySelector('#titleinput');
-                const slug = document.querySelector('#sluginput');
+        // function ShowModal1() {
+        //     // const kotaData = data.map(provinsi => provinsi.kota).flat();
+        //     // isiSelect(select1, kotaData);
+        //     // var Modal2 = document.getElementById("Modal2").value;
+        //     $('#exampleModal').ready(function() {
+        //         $('.select1').select2({
+        //             placeholder: 'Select an location...',
+        //             dropdownParent: '#exampleModal'
+        //         });
+        //         const title = document.querySelector('#titleinput');
+        //         const slug = document.querySelector('#sluginput');
 
-                title.addEventListener('change', function() {
-                    fetch('/admin-catalog/checkSlug?title=' + title.value)
-                        .then(response => response.json())
-                        .then(data => slug.value = data.slug)
-                });
-            });
-            // $('.select1').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#exampleModal'
-            // });
+        //         title.addEventListener('change', function() {
+        //             fetch('/admin-catalog/checkSlug?title=' + title.value)
+        //                 .then(data => slug.value = data.slug)
+        //         });
+        //     });
+        // $('.select1').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#exampleModal'
+        // });
 
-            // $('.select2').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#exampleModal16'
-            // });
-            // var catalogData = @json($catalogs2);
-            // var baseId = '#exampleModal1';
-            // catalogData.forEach(function(item, index) {
-            //     var elementId = baseId + index; // Membuat ID unik untuk setiap elemen
-            //     $(elementId + ' .select2').select2({
-            //         placeholder: 'Select an location...',
-            //         dropdownParent: elementId
-            //     });
-            // });
-            // console.log(Modal2);
-        }
+        // $('.select2').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#exampleModal16'
+        // });
+        // var baseId = '#exampleModal1';
+        // catalogData.forEach(function(item, index) {
+        //     var elementId = baseId + index; // Membuat ID unik untuk setiap elemen
+        //     $(elementId + ' .select2').select2({
+        //         placeholder: 'Select an location...',
+        //         dropdownParent: elementId
+        //     });
+        // });
+        // console.log(Modal2);
+        // }
 
-        function ShowModal3() {
-            // const kotaData = data.map(provinsi => provinsi.kota).flat();
-            // isiSelect(select1, kotaData);
-            // var Modal2 = document.getElementById("Modal2").value;
-            $('#exampleModalinternational').ready(function() {
-                $('.select1international').select2({
-                    placeholder: 'Select an location...',
-                    dropdownParent: '#exampleModalinternational'
-                });
-                const title2 = document.querySelector('#titleinput2');
-                const slug2 = document.querySelector('#sluginput2');
+        // function ShowModal3() {
+        //     // const kotaData = data.map(provinsi => provinsi.kota).flat();
+        //     // isiSelect(select1, kotaData);
+        //     // var Modal2 = document.getElementById("Modal2").value;
+        //     $('#exampleModalinternational').ready(function() {
+        //         $('.select1international').select2({
+        //             placeholder: 'Select an location...',
+        //             dropdownParent: '#exampleModalinternational'
+        //         });
+        //         const title2 = document.querySelector('#titleinput2');
+        //         const slug2 = document.querySelector('#sluginput2');
 
-                title2.addEventListener('change', function() {
-                    fetch('/admin-catalog/checkSlug2?title2=' + title2.value)
-                        .then(response => response.json())
-                        .then(data => slug2.value = data.slug2)
-                    // console.log(response);
-                });
-            });
-            // $('.select1').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#exampleModal'
-            // });
+        //         title2.addEventListener('change', function() {
+        //             fetch('/admin-catalog/checkSlug2?title2=' + title2.value)
+        //                 .then(data => slug2.value = data.slug2)
+        //             // console.log(response);
+        //         });
+        //     });
+        // $('.select1').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#exampleModal'
+        // });
 
-            // $('.select2').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#exampleModal16'
-            // });
-            // var catalogData = @json($catalogs2);
-            // var baseId = '#exampleModal1';
-            // catalogData.forEach(function(item, index) {
-            //     var elementId = baseId + index; // Membuat ID unik untuk setiap elemen
-            //     $(elementId + ' .select2').select2({
-            //         placeholder: 'Select an location...',
-            //         dropdownParent: elementId
-            //     });
-            // });
-            // console.log(Modal2);
-        }
+        // $('.select2').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#exampleModal16'
+        // });
+        // var baseId = '#exampleModal1';
+        // catalogData.forEach(function(item, index) {
+        //     var elementId = baseId + index; // Membuat ID unik untuk setiap elemen
+        //     $(elementId + ' .select2').select2({
+        //         placeholder: 'Select an location...',
+        //         dropdownParent: elementId
+        //     });
+        // });
+        // console.log(Modal2);
+        // }
 
-        function ShowModal2(catalogId) {
+        // function ShowModal2(catalogId) {
 
-            // Temukan elemen input dengan id "Modal2"
-            var modalInput = "#editModal" + catalogId;
-            var select = ".select2" + catalogId;
-            var fortitle = "#titleinput3" + catalogId;
-            var forslug = "#sluginput3" + catalogId;
-            console.log(modalInput);
+        // Temukan elemen input dengan id "Modal2"
+        // var modalInput = "#editModal" + catalogId;
+        // var select = ".select2" + catalogId;
+        // var fortitle = "#titleinput3" + catalogId;
+        // var forslug = "#sluginput3" + catalogId;
+        // var price = "#price2" + catalogId;
+        // console.log(modalInput);
 
-            // $(modalInput).ready(function() {
+        // $(modalInput).ready(function() {
 
-            // });
+        // });
 
-            $(modalInput).ready(function() {
-                $(select).select2({
-                    placeholder: 'Select an new location...',
-                    dropdownParent: modalInput
-                });
+        // $(modalInput).ready(function() {
+        //     $(select).select2({
+        //         placeholder: 'Select an new location...',
+        //         dropdownParent: modalInput
+        //     });
 
-                const title3 = document.querySelector(fortitle);
-                const slug3 = document.querySelector(forslug);
+        //     const title3 = document.querySelector(fortitle);
+        //     const slug3 = document.querySelector(forslug);
 
-                title3.addEventListener('change', function() {
-                    fetch('/admin-catalog/checkSlug3?title3=' + title3.value)
-                        .then(response => response.json())
-                        .then(data => slug3.value = data.slug3)
-                    // console.log(response);
-                });
-            });
+        //     title3.addEventListener('change', function() {
+        //         fetch('/admin-catalog/checkSlug3?title3=' + title3.value)
+        //             .then(data => slug3.value = data.slug3)
+        // console.log(response);
+        //     });
+        // });
 
-
-            // var modalInput = document.getElementById("Modal2");
-
-            // Ubah nilai input "Modal2" sesuai dengan catalogId yang diterima sebagai parameter
-            // modalInput.value = "exampleModal1" + catalogId;
-
-            // Sekarang Anda dapat menggunakan nilai ini di dalam modal
-            // Contoh: console.log(modalInput.value);
+        // $(document).ready(function() {
+        //     $(price).keyup(function() {
+        //         $(this).maskNumber({
+        //             integer: true,
+        //             thousands: "."
+        //         })
+        //     })
+        // });
 
 
-            // console.log(currentModalId);
-            // $('.Modal2').ready(function() {
-            //     var activeModal = document.querySelector('.modal.show');
-            //     var value;
+        // var modalInput = document.getElementById("Modal2");
 
-            //     if (activeModal) {
-            //         // Mencari input dengan id "Modal2" di dalam modal yang sedang ditampilkan
-            //         var modal2Input = activeModal.querySelector('#Modal2');
+        // Ubah nilai input "Modal2" sesuai dengan catalogId yang diterima sebagai parameter
+        // modalInput.value = "exampleModal1" + catalogId;
 
-            //         if (modal2Input) {
-            //             var value = modal2Input.value;
-            //             // return value;
-            //             return value;
-            //         }
-            //     }
-            // });
-
-            // const kotaData = data.map(provinsi => provinsi.kota).flat();
-            // isiSelect(select2, kotaData);
-            // var Modal2 = document.getElementById("Modal2").value;
-            // var Modal2 = document.getElementById("Modal2");
-            // var modalId = document.querySelector(".Modal2");
-            // var idValue = modalId.getAttribute("id");
-            // $('.select2').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#'
-            // });
-
-            // $('.Modal2').ready(function() {
-            // });
-            // $('.Modal2').ready(function() {
-            // var modalId = document.querySelector(".ppp").value;
-            // var isi = getModal2Value();
-            // console.log(value);
-            // $('#editModal3').ready(function() {
-            //     // var idValue = modalId.getAtribute("id");
-            //     // if (condition) {
-
-            //     // }
-            //     $('.select23').ready(function() {
-            //         $('.select23').select2({
-            //             placeholder: 'Select an location...',
-            //             dropdownParent: '#editModal3'
-            //         });
-            //     });
-            // });
-            // $('.select28').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#editModal8'
-            // });
-            // $('.select29').select2({
-            //     placeholder: 'Select an location...',
-            //     dropdownParent: '#editModal9'
-            // });
+        // Sekarang Anda dapat menggunakan nilai ini di dalam modal
+        // Contoh: console.log(modalInput.value);
 
 
-            // $(document).ready(function() {
-            //     $('.select2').select2();
-            // });
-            // var catalogData = @json($catalogs2);
-            // var baseId = '#exampleModal1';
-            // catalogData.forEach(function(item, index) {
-            //     var elementId = baseId + index; // Membuat ID unik untuk setiap elemen
-            //     $(elementId + ' .select2').select2({
-            //         placeholder: 'Select an location...',
-            //         dropdownParent: elementId
-            //     });
-            // });
-        }
+        // console.log(currentModalId);
+        // $('.Modal2').ready(function() {
+        //     var activeModal = document.querySelector('.modal.show');
+        //     var value;
 
-        function ShowModalImage(catalogId) {
+        //     if (activeModal) {
+        //         // Mencari input dengan id "Modal2" di dalam modal yang sedang ditampilkan
+        //         var modal2Input = activeModal.querySelector('#Modal2');
 
-            Dropzone.autoDiscover = false;
+        //         if (modal2Input) {
+        //             var value = modal2Input.value;
+        //             // return value;
+        //             return value;
+        //         }
+        //     }
+        // });
 
-            var idDropzone = "#dropzone" + catalogId;
+        // const kotaData = data.map(provinsi => provinsi.kota).flat();
+        // isiSelect(select2, kotaData);
+        // var Modal2 = document.getElementById("Modal2").value;
+        // var Modal2 = document.getElementById("Modal2");
+        // var modalId = document.querySelector(".Modal2");
+        // var idValue = modalId.getAttribute("id");
+        // $('.select2').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#'
+        // });
 
-            var myDropzone = new Dropzone(idDropzone, {
-                url: "/uploadimagecatalog", // URL untuk mengirim file yang diunggah
-                maxFilesize: 5, // Batasan ukuran file (dalam megabyte)
-                addRemoveLinks: true, // Menampilkan tautan untuk menghapus file yang diunggah
-                dictDefaultMessage: "Drag image here or click to upload ",
-                // acceptedFiles: "image/jpeg, image/jpg, image/png", // Hanya menerima file dengan ekstensi jpg, jpeg, dan png
-                success: function(file, response) {
-                    // Dipanggil ketika unggahan berhasil
-                    console.log(response);
-                },
-                error: function(file, response) {
-                    // Dipanggil ketika unggahan gagal
-                    console.log(response);
-                }
-            });
-        }
+        // $('.Modal2').ready(function() {
+        // });
+        // $('.Modal2').ready(function() {
+        // var modalId = document.querySelector(".ppp").value;
+        // var isi = getModal2Value();
+        // console.log(value);
+        // $('#editModal3').ready(function() {
+        //     // var idValue = modalId.getAtribute("id");
+        //     // if (condition) {
+
+        //     // }
+        //     $('.select23').ready(function() {
+        //         $('.select23').select2({
+        //             placeholder: 'Select an location...',
+        //             dropdownParent: '#editModal3'
+        //         });
+        //     });
+        // });
+        // $('.select28').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#editModal8'
+        // });
+        // $('.select29').select2({
+        //     placeholder: 'Select an location...',
+        //     dropdownParent: '#editModal9'
+        // });
+
+
+        // $(document).ready(function() {
+        //     $('.select2').select2();
+        // });
+        // var baseId = '#exampleModal1';
+        // catalogData.forEach(function(item, index) {
+        //     var elementId = baseId + index; // Membuat ID unik untuk setiap elemen
+        //     $(elementId + ' .select2').select2({
+        //         placeholder: 'Select an location...',
+        //         dropdownParent: elementId
+        //     });
+        // });
+        // }
+
+        // function ShowModalImage(catalogId) {
+
+        //     Dropzone.autoDiscover = false;
+
+        //     var idDropzone = "#dropzone" + catalogId;
+
+        //     var myDropzone = new Dropzone(idDropzone, {
+        //         url: "/uploadimagecatalog", // URL untuk mengirim file yang diunggah
+        //         maxFilesize: 5, // Batasan ukuran file (dalam megabyte)
+        //         addRemoveLinks: true, // Menampilkan tautan untuk menghapus file yang diunggah
+        //         dictDefaultMessage: "Drag image here or click to upload ",
+        //         // acceptedFiles: "image/jpeg, image/jpg, image/png", // Hanya menerima file dengan ekstensi jpg, jpeg, dan png
+        //         success: function(file, response) {
+        //             // Dipanggil ketika unggahan berhasil
+        //             console.log(response);
+        //         },
+        //         error: function(file, response) {
+        //             // Dipanggil ketika unggahan gagal
+        //             console.log(response);
+        //         }
+        //     });
+        // }
 
         function previewImage() {
             const image = document.querySeletor('#main_image');
@@ -2172,7 +2176,6 @@
         </script>
     @endforeach --}}
     {{-- <script>
-        var catalogData = @json($catalogs2);
         var baseId = '#exampleModal1';
         catalogData.forEach(function(item, index) {
             var elementId = baseId + index; // Membuat ID unik untuk setiap elemen

@@ -1,7 +1,7 @@
 <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-success text-white offcanvas-md offcanvas-start"
     style="width: 280px;">
     <a href="#" class="navbar-brand">
-        <h5><i class="fa-solid fa-bomb me-2" style="font-size: 28px;"></i> NailTour</h5>
+        <h5><i class="fa-solid fa-bomb me-2" style="font-size: 28px;"></i>Na'ilTour</h5>
         {{-- <h5><i class="fa-solid fa-plane-departure me-2" style="font-size: 28px;"></i> NailTour</h5> --}}
     </a>
     <hr class="mb-1">
@@ -20,7 +20,7 @@
             </div>
         </li> --}}
         <li class="nav-item mb-1">
-            <a href="#" class="{{ $title === 'Dashboard' ? 'active' : '' }}">
+            <a href="admin-dashboard" class="{{ $title === 'Dashboard' ? 'active' : '' }}">
                 <i class="fa-solid fa-gauge"></i>
                 Dashboard
             </a>
@@ -44,6 +44,12 @@
                     <a href="/admin-officer" class="{{ $title === 'Officer' ? 'active' : '' }}">
                         <i class="fa-solid fa-user"></i>
                         Officer
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a href="/admin-user" class="{{ $title === 'User' ? 'active' : '' }}">
+                        <i class="fa-solid fa-user"></i>
+                        User
                     </a>
                 </li>
                 <li class="nav-item mb-1">
@@ -84,6 +90,18 @@
                     </a>
                 </li>
             </ul>
+        </li>
+        <li class="nav-item mb-1">
+            <a href="/admin-transactions" class="{{ $title === 'Transaction' ? 'active' : '' }}">
+                <i class="fa-solid fa-cash-register"></i>
+                Transaction
+            </a>
+        </li>
+        <li class="nav-item mb-1">
+            <a href="/admin-reports" class="{{ $title === 'Reports' ? 'active' : '' }}">
+                <i class="fa-solid fa-scroll"></i>
+                Reports
+            </a>
         </li>
         {{-- <li class="nav-item mb-0 dropdown-custom">
             <button onclick="toggleDataDropdown2()" href=""
@@ -229,8 +247,13 @@
     </div> --}}
     <hr class="mt-0 hr-custom">
     <div class="d-flex user-custom mb-0">
-        <img src="../assets/img/user.jpg" class="img-fluid rounded me-2"
-            style="width: 50px; height: 50px; margin-top: 4px" alt="">
+        @if (auth()->user()->photo_profile == 'photoprofile/user.png')
+            <img src="../assets/img/user.png" class="img-fluid rounded me-2"
+                style="width: 50px; height: 50px; margin-top: 4px" alt="">
+        @else
+            <img src="{{ asset('storage/' . auth()->user()->photo_profile) }}" class="img-fluid rounded me-2"
+                style="width: 50px; height: 50px; margin-top: 4px" alt="">
+        @endif
         <span style="margin-top: 4px">
             <h6 class="mt-1 mb-0">{{ auth()->user()->username }}</h6>
             <small>Admin</small>

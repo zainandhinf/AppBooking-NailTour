@@ -13,7 +13,9 @@ use App\Models\DetailTransactions;
 use App\Models\Transportation;
 use App\Models\Offer;
 use App\Models\Payment;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 // use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -31,13 +33,43 @@ class UserController extends Controller
         );
     }
 
+    public function about()
+    {
+        return view(
+            'user.layout.about',
+            [
+                'title' => "About",
+                // "user" => User::all()
+
+            ]
+        );
+    }
+
+    public function contact()
+    {
+        return view(
+            'user.layout.contact',
+            [
+                'title' => "Contact",
+                // "user" => User::all()
+
+            ]
+        );
+    }
+
     public function catalogs()
     {
+        $catalogs = Catalog::latest();
+
+        if (request('search')) {
+            $catalogs->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('description', 'like', '%' . request('search') . '%');
+        }
         return view(
             'user.layout.catalog',
             [
                 'title' => "Catalogs",
-                'catalogs' => Catalog::all()
+                'catalogs' => $catalogs->paginate(15)
             ]
         );
     }
@@ -56,6 +88,145 @@ class UserController extends Controller
     }
 
     public function createbooking(Request $request)
+    {
+        $existingBooking = DB::table('detail_transactions')
+            ->where('id_user', $request->input('id_user'))
+            ->where('date', $request->input('date'))
+            ->where('date2', $request->input('date2'))
+            ->exists();
+        $id_catalog = $request->input('id_catalog');
+        $slug = $request->input('slug');
+        $id_user = $request->input('id_user');
+        $name = $request->input('name');
+        $date = $request->input('date');
+        $date2 = $request->input('date2');
+        $qtyadult = $request->input('qty');
+        $qtychild = $request->input('qty2');
+        $transportation = $request->input('transportation');
+        // Jika sudah ada pemesanan, berikan peringatan
+        if ($existingBooking) {
+            // return response()->json(['message' => 'Anda telah membuat pemesanan untuk tanggal tersebut. Apakah Anda yakin ingin melanjutkan?'], 422);
+            // return confirm('Are you sure you want to delete data?');
+            // return "<script>alert('Data Tidak Boleh Kosong!');window.location.href='/booking';</script>";
+            return "<script>var confirm = confirm('You already have a tour booking schedule for that date, do you want to keep booking?');if (confirm) {
+                window.location.href='/createbooking/yes/$id_catalog/$slug/$id_user/$name/$date/$date2/$qtyadult/$qtychild/$transportation';
+            } else {
+                window.location.href='/catalog/$slug';
+            }</script>";
+
+
+        }
+
+        $data = DB::table('head_transactions')->select(DB::raw('RIGHT(no_trans, 4) + 1 as noUrut'))
+            ->orderBy('no_trans', 'DESC')->limit(1)->get();
+
+        $today = now()->format('Ymd');
+        $today2 = now()->format('Y-m-d');
+        $noTrans = "";
+
+        if (!$data->isEmpty()) {
+            $noUrut = $data[0]->noUrut;
+            $floatValue = floatval($noUrut);
+        }
+
+        if ($data->isEmpty()) {
+            $noTrans = $today . "0001";
+        } else {
+            // $noTrans = $today . str_pad($noUrut, 4, '0', STR_PAD_LEFT);
+            if ($noUrut < 10) {
+                $noTrans = $today . "000" . $noUrut;
+            } else if ($noUrut < 100) {
+                $noTrans = $today . "00" . $noUrut;
+            } else if ($noUrut < 1000) {
+                $noTrans = $today . "0" . $noUrut;
+            } else if ($noUrut < 10000) {
+                $noTrans = $today . $noUrut;
+            } else {
+                $noTrans = $today . "0001";
+            }
+        }
+
+        // ddd($noTrans);
+        $validatedDataHead['no_trans'] = $noTrans;
+        $validatedDataHead['date'] = $today2;
+        $validatedDataHead['total_payment'] = null;
+        $validatedDataHead['status'] = "On Process";
+
+
+        $result = DB::table('head_transactions')
+            ->select('*')
+            ->get();
+
+        if (!$result->isEmpty()) {
+            // $result = DB::table('head_transactions')
+            //     ->select('*')
+            //     ->groupBy('created_at')
+            //     ->orderByDesc('created_at')
+            //     ->limit(1)
+            //     ->get();
+            // $result = DB::table('head_transactions')
+            //     ->groupBy('created_at')
+            //     ->orderBy('created_at', 'desc')
+            //     ->limit(1)
+            //     ->get();
+            $result = DB::table('head_transactions')
+                ->groupBy('created_at')
+                ->select('created_at', DB::raw('MAX(id) as id'))
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        if ($result->isEmpty()) {
+            $validatedDataDetail['head_transaction_id'] = 1;
+        } else {
+            $validatedDataDetail['head_transaction_id'] = $result[0]->id + 1;
+        }
+
+        $adult = str_replace('.', '', $request->input('qty'));
+        $validatedDataDetail['adult_qty'] = intval($adult);
+        $child = str_replace('.', '', $request->input('qty'));
+        $validatedDataDetail['child_qty'] = intval($child);
+
+        $validatedDataDetail['no_trans'] = $noTrans;
+        $validatedDataDetail['id_user'] = $request->input('id_user');
+        $validatedDataDetail['name'] = $request->input('name');
+        $validatedDataDetail['id_catalog'] = $request->input('id_catalog');
+        $validatedDataDetail['date'] = $request->input('date');
+        $validatedDataDetail['date2'] = $request->input('date2');
+        $validatedDataDetail['adult_qty'] = $request->input('qty');
+        $validatedDataDetail['child_qty'] = $request->input('qty2');
+        $validatedDataDetail['transportation_id'] = $request->input('transportation');
+
+        $validatedDataOffer['description'] = "make the first offer";
+        $validatedDataOffer['transaction_id'] = $validatedDataDetail['head_transaction_id'];
+        $validatedDataOffer['user_id'] = $request->input('id_user');
+        $validatedDataOffer['date'] = $today2;
+
+        // dd($validatedDataDetail['transportation_id']);
+
+
+        HeadTransaction::create($validatedDataHead);
+        DetailTransactions::create($validatedDataDetail);
+        Offer::create($validatedDataOffer);
+        // dd($today2);
+        // $validatedDataHead = $request->validate([
+        //     'name' => 'required|max:255',
+        //     'provinces_id' => 'required'
+        // ]);
+
+
+        // City::create($validatedData);
+
+        $request->session()->flash('success', 'Booking has been added!');
+
+        return redirect(url('/catalog/' . $slug));
+
+        // return redirect()->route('/catalog/' . ['slug' => $slug]);
+
+        // return redirect('/catalog/{{ $slug }}');
+    }
+
+    public function createbookingyes(Request $request, $id_catalog, $slug, $id_user, $name, $date, $date2, $qtyadult, $qtychild, $transportation)
     {
         $data = DB::table('head_transactions')->select(DB::raw('RIGHT(no_trans, 4) + 1 as noUrut'))
             ->orderBy('no_trans', 'DESC')->limit(1)->get();
@@ -89,6 +260,7 @@ class UserController extends Controller
         // ddd($noTrans);
         $validatedDataHead['no_trans'] = $noTrans;
         $validatedDataHead['date'] = $today2;
+        $validatedDataHead['total_payment'] = null;
         $validatedDataHead['status'] = "On Process";
 
 
@@ -122,23 +294,23 @@ class UserController extends Controller
         }
 
         $validatedDataDetail['no_trans'] = $noTrans;
-        $validatedDataDetail['id_user'] = $request->input('id_user');
-        $validatedDataDetail['name'] = $request->input('name');
-        $validatedDataDetail['id_catalog'] = $request->input('id_catalog');
-        $validatedDataDetail['date'] = $request->input('date');
-        $validatedDataDetail['date2'] = $request->input('date2');
-        $validatedDataDetail['adult_qty'] = $request->input('qty');
-        $validatedDataDetail['child_qty'] = $request->input('qty2');
-        $validatedDataDetail['transportation_id'] = $request->input('transportation');
+        $validatedDataDetail['id_user'] = $id_user;
+        $validatedDataDetail['name'] = $name;
+        $validatedDataDetail['id_catalog'] = $id_catalog;
+        $validatedDataDetail['date'] = $date;
+        $validatedDataDetail['date2'] = $date2;
+        $validatedDataDetail['adult_qty'] = $qtyadult;
+        $validatedDataDetail['child_qty'] = $qtychild;
+        $validatedDataDetail['transportation_id'] = $transportation;
 
         $validatedDataOffer['description'] = "make the first offer";
         $validatedDataOffer['transaction_id'] = $validatedDataDetail['head_transaction_id'];
-        $validatedDataOffer['user_id'] = $request->input('id_user');
+        $validatedDataOffer['user_id'] = $id_user;
         $validatedDataOffer['date'] = $today2;
 
         // dd($validatedDataDetail['transportation_id']);
 
-        $slug = $request->input('slug');
+        $slugurl = $slug;
 
         HeadTransaction::create($validatedDataHead);
         DetailTransactions::create($validatedDataDetail);
@@ -154,7 +326,7 @@ class UserController extends Controller
 
         $request->session()->flash('success', 'Booking has been added!');
 
-        return redirect(url('/catalog/' . $slug));
+        return redirect(url('/catalog/' . $slugurl));
 
         // return redirect()->route('/catalog/' . ['slug' => $slug]);
 
@@ -206,7 +378,7 @@ class UserController extends Controller
         return view(
             'user.layout.bookings',
             [
-                'title' => "Booking",
+                'title' => "Bookings",
                 "transactions" => $transaction
                 // "user" => User::all()
             ]
@@ -215,20 +387,33 @@ class UserController extends Controller
 
     public function booking($no_trans)
     {
-        // ddd($no_trans);
-        $transaction = HeadTransaction::select('head_transactions.id as id_head', 'head_transactions.no_trans as no_trans_head', 'head_transactions.date as date_head', 'head_transactions.status as status_head', 'detail_transactions.id', 'detail_transactions.head_transaction_id as head_transaction_id', 'detail_transactions.no_trans as no_trans_detail', 'detail_transactions.id_user as id_user_detail', 'detail_transactions.name', 'detail_transactions.id_catalog as id_catalog_detail', 'detail_transactions.adult_qty as adult_qty', 'detail_transactions.child_qty as child_qty', 'detail_transactions.date as date1', 'detail_transactions.date2 as date2', 'users.id', 'users.username', 'catalogs.id', 'catalogs.title', 'catalogs.slug', 'catalogs.location', 'catalogs.price', 'catalogs.description', 'catalogs.main_image', 'catalogs.categories', 'head_transactions.date', 'head_transactions.status', 'transportations.name as transportation')
+        $transaction = HeadTransaction::select('head_transactions.id as id_head', 'head_transactions.no_trans as no_trans_head', 'head_transactions.date as date_head', 'head_transactions.status as status_head', 'detail_transactions.id', 'detail_transactions.head_transaction_id as head_transaction_id', 'detail_transactions.no_trans as no_trans_detail', 'detail_transactions.id_user as id_user_detail', 'detail_transactions.name', 'detail_transactions.id_catalog as id_catalog_detail', 'detail_transactions.adult_qty as adult_qty', 'detail_transactions.child_qty as child_qty', 'detail_transactions.date as date1', 'detail_transactions.date2 as date2', 'users.id', 'users.username', 'catalogs.id', 'catalogs.title', 'catalogs.slug', 'catalogs.location', 'catalogs.price', 'catalogs.description', 'catalogs.main_image', 'catalogs.categories', 'head_transactions.date', 'head_transactions.status', 'transportations.name as transportation', 'head_transactions.total_payment as total_payment_head')
             ->join('detail_transactions', 'head_transactions.id', '=', 'detail_transactions.head_transaction_id')
             ->join('users', 'detail_transactions.id_user', '=', 'users.id')
             ->join('catalogs', 'detail_transactions.id_catalog', '=', 'catalogs.id')
             ->join('transportations', 'detail_transactions.transportation_id', '=', 'transportations.id')
             ->where('head_transactions.no_trans', '=', $no_trans)
             ->get();
+        $transactionPayments = HeadTransaction::select('head_transactions.id as id_head', 'head_transactions.no_trans as no_trans_head', 'head_transactions.date as date_head', 'head_transactions.status as status_head', 'detail_transactions.id', 'detail_transactions.head_transaction_id as head_transaction_id', 'detail_transactions.no_trans as no_trans_detail', 'detail_transactions.id_user as id_user_detail', 'detail_transactions.name', 'detail_transactions.id_catalog as id_catalog_detail', 'detail_transactions.adult_qty as adult_qty', 'detail_transactions.child_qty as child_qty', 'detail_transactions.date as date1', 'detail_transactions.date2 as date2', 'users.id', 'users.username', 'catalogs.id', 'catalogs.title', 'catalogs.slug', 'catalogs.location', 'catalogs.price', 'catalogs.description', 'catalogs.main_image', 'catalogs.categories', 'head_transactions.date', 'head_transactions.status', 'transportations.name as transportation', 'payments.id as id_payment', 'payments.name as payment_name', 'payments.description as payment_description')
+            ->join('detail_transactions', 'head_transactions.id', '=', 'detail_transactions.head_transaction_id')
+            ->join('users', 'detail_transactions.id_user', '=', 'users.id')
+            ->join('catalogs', 'detail_transactions.id_catalog', '=', 'catalogs.id')
+            ->join('transportations', 'detail_transactions.transportation_id', '=', 'transportations.id')
+            ->join('payments', 'payments.id', '=', 'detail_transactions.payment_id')
+            ->where('head_transactions.no_trans', '=', $no_trans)
+            ->get();
+
+        // $transaction2 = $transaction = HeadTransaction::select('*')
+        //     ->where('head_transactions.no_trans', '=', $no_trans)
+        //     ->get();
+        // dd($transaction);
         // ddd($transaction[0]->no_trans);
         return view(
             'user.layout.booking',
             [
                 'title' => "Booking",
                 "transaction" => $transaction,
+                "transactionPayments" => $transactionPayments,
                 'transportations' => Transportation::all(),
                 'payments' => Payment::all()
                 // "user" => User::all()
@@ -265,7 +450,7 @@ class UserController extends Controller
         return view(
             'user.layout.deal',
             [
-                'title' => "Booking",
+                'title' => "Deal",
                 "transaction" => $transaction
                 // "user" => User::all()
             ]
@@ -274,11 +459,15 @@ class UserController extends Controller
 
     public function addpaymentuser(Request $request, Payment $payment)
     {
+        // dd($request->input('total_payment'));    
         $validatedData = $request->validate([
             'payment_id' => 'required'
         ]);
 
         $validatedDataHead['status'] = "Waiting Payments";
+        // $validatedDataHead['total_payment'] = $request->input('total_payment');
+        $price = str_replace('.', '', $request->input('total_payment'));
+        $validatedDataHead['total_payment'] = intval($price);
 
         DB::table('detail_transactions')
             ->where('id', $request->input('transaction_id'))
@@ -330,7 +519,7 @@ class UserController extends Controller
 
     public function printproof($no_trans)
     {
-        $data = HeadTransaction::select('head_transactions.id as id_head', 'head_transactions.no_trans', 'head_transactions.date as date_head', 'detail_transactions.id', 'detail_transactions.head_transaction_id as head_transaction_id', 'detail_transactions.no_trans as no_trans_detail', 'detail_transactions.id_user as id_user_detail', 'detail_transactions.name', 'detail_transactions.id_catalog as id_catalog_detail', 'detail_transactions.adult_qty as adult_qty', 'detail_transactions.child_qty as child_qty', 'detail_transactions.date as date1', 'detail_transactions.date2 as date2', 'users.id', 'users.username', 'catalogs.id', 'catalogs.title', 'catalogs.slug', 'catalogs.location', 'catalogs.price', 'catalogs.description', 'catalogs.main_image', 'catalogs.categories', 'head_transactions.date', 'head_transactions.status as status_head', 'transportations.name as transportation')
+        $data = HeadTransaction::select('head_transactions.id as id_head', 'head_transactions.no_trans', 'head_transactions.date as date_head', 'detail_transactions.id', 'detail_transactions.head_transaction_id as head_transaction_id', 'detail_transactions.no_trans as no_trans_detail', 'detail_transactions.id_user as id_user_detail', 'detail_transactions.name', 'detail_transactions.id_catalog as id_catalog_detail', 'detail_transactions.adult_qty as adult_qty', 'detail_transactions.child_qty as child_qty', 'detail_transactions.date as date1', 'detail_transactions.date2 as date2', 'users.id', 'users.username', 'catalogs.id', 'catalogs.title', 'catalogs.slug', 'catalogs.location', 'catalogs.price', 'catalogs.description', 'catalogs.main_image', 'catalogs.categories', 'head_transactions.date', 'head_transactions.status as status_head', 'transportations.name as transportation', 'head_transactions.total_payment')
             ->join('detail_transactions', 'head_transactions.id', '=', 'detail_transactions.head_transaction_id')
             ->join('users', 'detail_transactions.id_user', '=', 'users.id')
             ->join('catalogs', 'detail_transactions.id_catalog', '=', 'catalogs.id')
@@ -366,6 +555,80 @@ class UserController extends Controller
         $request->session()->flash('success', 'Offer added successfully!');
 
         return redirect(url('/booking/' . $slug));
+    }
+
+    public function account()
+    {
+        return view(
+            'user.layout.account',
+            [
+                'title' => "Account",
+                'catalogs' => Catalog::all()
+            ]
+        );
+    }
+
+    public function editprofile(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'no_phone' => 'required|max:12',
+            'photo_profile' => 'image|file|max:1024'
+        ]);
+
+        if ($request->file('photo_profile')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['photo_profile'] = $request->file('photo_profile')->store('photoprofile');
+            // dd($photo_profile);
+        } else {
+            $validatedData['photo_profile'] = $request->oldImage;
+        }
+
+        $usernameold = DB::table('users')
+            ->select('username')
+            ->where('id', '=', $request->input('id_user'))
+            ->get();
+
+        $emailold = DB::table('users')
+            ->select('email')
+            ->where('id', '=', $request->input('id_user'))
+            ->get();
+
+        // dd($usernameold[0]->username);
+        $usernameold2 = $usernameold[0]->username;
+        $emailold2 = $emailold[0]->email;
+
+        if ($request->username != $usernameold2) {
+            $validatedData['username'] = 'required|unique:users';
+        }
+
+        if ($request->email != $emailold2) {
+            $validatedData['email'] = 'required|unique:users';
+        }
+
+        DB::table('users')
+            ->where('id', $request->input('id_user'))
+            ->update($validatedData);
+
+        $request->session()->flash('success', 'Profile has been editted!');
+
+        return redirect('/account');
+
+    }
+
+    public function EditPassword(Request $request, User $user)
+    {
+
+        DB::table('users')
+            ->where('id', $request->input('id_user'))
+            ->update([
+                'password' => bcrypt($request->input('password'))
+            ]);
+        $request->session()->flash('success', 'Password has been editted!');
+        return redirect('/account');
     }
 
 }

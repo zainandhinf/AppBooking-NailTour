@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <title>Sign Up | Admin</title>
+    <title>Sign Up | NailTour</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
         <div class="login-container">
             <p class="title">Sign Up</p>
             <div class="separator mt-0"></div>
-            <p class="welcome-message">Please, provide login credential to proceed and have access to all our services
+            <p class="welcome-message">Register to continue and have access to all our services
             </p>
 
             @if (session()->has('logerror'))
@@ -30,27 +30,64 @@
                 </div>
             @endif
 
-            <form action="/loginAdmin" method="post" class="login-form">
+
+            <form action="/signup" method="post" class="login-form" style="margin-top:-38px;">
                 @csrf
                 <div class="form-control">
-                    <input type="text" placeholder="Name" name="name" required>
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="form-control">
-                    <input type="text" placeholder="Username" name="username" required>
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="form-control">
-                    <input type="text" placeholder="Email" name="email" required>
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="form-control">
-                    <input type="password" placeholder="Password" name="password" required>
-                    <i class="fas fa-lock"></i>
+                    <input class="@error('name') is-invalid @enderror" type="text" placeholder="Name" name="name"
+                        value="{{ old('name') }}" required>
+                    <i class="fas fa-user" style="@error('name') margin-top: -12px @enderror"></i>
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
 
-                <button class="submit" type="submit">Login</button>
+                {{-- <div class="form-floating">
+                    <input type="text" name="name" class="form-control rounded-top" id="name"
+                        placeholder="Name">
+                    <label for="name">
+                        <i class="fas fa-user ms-2 me-3"></i>
+                        Name</label>
+                    <div class="invalid-feedback">
+                        zz
+                    </div>
+                </div> --}}
+                <div class="form-control">
+                    <input class="@error('username') is-invalid @enderror" type="text" placeholder="Username"
+                        name="username" value="{{ old('username') }}" required>
+                    <i class="fas fa-user" style="@error('username') margin-top: -12px @enderror"></i>
+                    @error('username')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-control">
+                    <input class="@error('email') is-invalid @enderror" type="text" placeholder="Email"
+                        name="email" value="{{ old('email') }}" required>
+                    <i class="fa-solid fa-at" style="@error('email') margin-top: -12px @enderror"></i>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-control">
+                    <input class="@error('password') is-invalid @enderror" type="password" placeholder="Password"
+                        name="password" required>
+                    <i class="fas fa-lock" style="@error('password') margin-top: -12px @enderror"></i>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <button class="submit mt-0" type="submit">Sign Up</button>
             </form>
+            <p>Already have an account? <a class="text-decoration-none" href="/login">Login</a></p>
         </div>
     </section>
 

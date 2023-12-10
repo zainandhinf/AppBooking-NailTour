@@ -87,10 +87,10 @@
                     dd($result);
                 @endphp --}}
                 <h1>{{ $catalog->title }}</h1>
-                <h2>Start From : Rp. {{ $catalog->price }}/pax</h2>
-                <p>Location : {{ $catalog->location }}</p>
-                <p>Categories : {{ $catalog->categories }}</p>
-                <p>Description : {{ $catalog->description }}
+                <h2>Start From : Rp. {{ number_format($catalog->price, 0, ',', '.') }}/pax</h2>
+                <p class="fs-4">Location : {{ $catalog->location }}</p>
+                <p class="fs-4">Categories : {{ $catalog->categories }}</p>
+                <p class="fs-4">Description : {{ $catalog->description }}
                 </p>
                 {{-- <p>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia dicta a tenetur magnam
                     repudiandae fugiat optio consequatur molestias, id assumenda incidunt officiis excepturi sunt! Modi
@@ -108,33 +108,33 @@
                     aperiam eligendi nisi mollitia? Perferendis omnis rerum odio soluta repudiandae deleniti unde ducimus
                     asperiores, quae non error, reprehenderit suscipit provident architecto natus est ea sit nulla? Ipsum?
                 </p> --}}
-                <button onclick="ShowModal1()" type="button" class="btn btn-primary mt-4 " data-bs-toggle="modal"
+                <button onclick="ShowModal1()" type="button" class="btn btn-primary mt-4 fs-5" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
                     Create Booking
                 </button>
 
                 <!-- Modal for booking -->
 
-                <div class="modal fade modal-custom" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal modal-lg fade modal-custom" id="exampleModal" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-full">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Create Booking</h1>
+                                <h1 class="modal-title fs-4" id="exampleModalLabel">Create Booking</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" ari
                                     a-label="Close"></button>
                             </div>
                             <div class="modal-body">
 
-                                <form action="/createbooking" method="post">
+                                <form action="/createbooking/check" method="post">
                                     @csrf
                                     <input type="hidden" value="{{ $catalog->id }}" name="id_catalog">
                                     <input type="hidden" value="{{ $catalog->slug }}" name="slug">
                                     <input type="hidden" value="{{ auth()->user()->id }}" name="id_user">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Name Client</span>
+                                        <span class="input-group-text fs-5" id="basic-addon1">Name Client</span>
                                         <input type="text"
-                                            class="form-control @error('name')
+                                            class="form-control fs-5 @error('name')
                             is-invalid
                         @enderror"
                                             placeholder="Name Client..." aria-label="Name" aria-describedby="basic-addon1"
@@ -146,9 +146,9 @@
                                         @enderror
                                     </div>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Date</span>
+                                        <span class="input-group-text fs-5" id="basic-addon1">Date</span>
                                         <input type="date"
-                                            class="form-control @error('date')
+                                            class="form-control fs-5 @error('date')
                             is-invalid
                         @enderror"
                                             placeholder="Date..." aria-label="Date" aria-describedby="basic-addon1"
@@ -159,11 +159,11 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <p class="mb-3">Until</p>
+                                    <p class="mb-3 fs-5">Until</p>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Date</span>
+                                        <span class="input-group-text fs-5" id="basic-addon1">Date</span>
                                         <input type="date"
-                                            class="form-control @error('date2')
+                                            class="form-control fs-5 @error('date2')
                             is-invalid
                         @enderror"
                                             placeholder="Date2..." aria-label="Date2" aria-describedby="basic-addon1"
@@ -176,12 +176,12 @@
                                     </div>
                                     <div class="input-group mb-3">
                                         <span
-                                            class="input-group-text @error('qty')
+                                            class="input-group-text fs-5 @error('qty')
                                 mt-3
                             @enderror"
                                             id="basic-addon1">Qty</span>
                                         <input id="qty" type="text"
-                                            class="form-control @error('qty')
+                                            class="form-control fs-5 @error('qty')
                             is-invalid
                         @enderror @error('qty')
                         mt-3
@@ -189,7 +189,7 @@
                                             placeholder="Adult..." aria-label="Qty" aria-describedby="basic-addon1"
                                             name="qty" required>
                                         <input id="qty2" type="text"
-                                            class="form-control @error('qty2')
+                                            class="form-control fs-5 @error('qty2')
                             is-invalid
                         @enderror @error('qty2')
                         mt-3
@@ -203,8 +203,8 @@
                                         @enderror
                                     </div>
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">Transportation</span>
-                                        <select class="form-select" id="inputGroupSelect01"
+                                        <span class="input-group-text fs-5" id="basic-addon1">Transportation</span>
+                                        <select class="form-select fs-5" id="inputGroupSelect01"
                                             class="form-control @error('transportation')
                                         is-invalid
                                     @enderror"
@@ -223,8 +223,9 @@
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary fs-5"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary fs-5">Create Booking</button>
                                 </form>
                             </div>
                         </div>
@@ -240,12 +241,38 @@
 
     <script>
         $(document).ready(function() {
-            $("#price").keyup(function() {
+            $("#qty").keyup(function() {
                 $(this).maskNumber({
                     integer: true,
                     thousands: "."
                 })
             })
         });
+
+        $(document).ready(function() {
+            $("#qty2").keyup(function() {
+                $(this).maskNumber({
+                    integer: true,
+                    thousands: "."
+                })
+            })
+        });
+        // $(document).ready(function() {
+        //     // Handle respons dari server setelah mencoba membuat pemesanan
+        //     $.ajax({
+        //         url: 'url/ke/createbooking', // Ganti dengan URL sesuai kebutuhan
+        //         type: 'POST',
+        //         data: formData, // Ganti dengan data yang sesuai
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             // Pemesanan berhasil, lanjutkan dengan logika Anda
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Tangkap pesan peringatan dan tampilkan sebagai alert
+        //             var responseJson = JSON.parse(xhr.responseText);
+        //             alert(responseJson.message);
+        //         }
+        //     });
+        // });
     </script>
 @endsection

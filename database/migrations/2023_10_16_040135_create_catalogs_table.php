@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug')->unique()->nullable();
             $table->string('location');
-            $table->string('price');
+            $table->integer('price');
             $table->text('description');
             $table->string('main_image')->nullable();
             $table->string('categories');

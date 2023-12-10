@@ -9,5 +9,5 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['description', 'file', 'transaction_id', 'user_id', 'date'];
+    protected $fillable = ['description', 'file', 'transaction_id', 'user_id', 'total_payment', 'date'];
 }

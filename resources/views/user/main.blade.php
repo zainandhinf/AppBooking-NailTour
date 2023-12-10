@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NailTour | {{ $title }}</title>
+    <title>Na'ilTour | {{ $title }}</title>
+    {{-- <link rel="icon" href="assets/img/user.png"> --}}
     {{-- <link rel="stylesheet" href="assets/css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -109,7 +110,7 @@
     @include('user.layout.partials.footer')
 
 
-    <script src="assets/user/js/main.js"></script>
+    {{-- <script src="assets/user/js/main.js"></script>
     <script src="../assets/user/js/main.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
@@ -117,7 +118,87 @@
     <script src="../assets/js/jquery.masknumber.js"></script>
     <script src="assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script>
     <script src="../assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script> --}}
+    {{-- JQuery --}}
+    <script src="assets/jquery/jquery-3.7.1.min.js"></script>
+    <script src="../assets/jquery/jquery-3.7.1.min.js"></script>
+    <script src="assets/jquery/jquery-3.7.0.js"></script>
+    <script src="../assets/jquery/jquery-3.7.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"
+        integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+        crossorigin="anonymous"></script>
+    {{-- <script src="assets/js/jquery-3.7.1.min.js"></script> --}}
+    {{-- end JQuery --}}
+
+    {{-- Bootstrap --}}
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    {{-- <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script> --}}
+    {{-- end Bootstrap --}}
+
+    {{-- DataTables --}}
+    <script src="assets/DataTables/jquery.dataTables.min.js"></script>
+    <script src="../assets/DataTables/jquery.dataTables.min.js"></script>
+    <script src="assets/DataTables/dataTables.bootstrap5.min.js"></script>
+    <script src="../assets/DataTables/dataTables.bootstrap5.min.js"></script>
+    {{-- <script src="assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script>
+    <script src="../assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script> --}}
+    {{-- end DataTables --}}
+
+    {{-- Select2 --}}
+    <script src="assets/select2/select2.min.js"></script>
+    <script src="../assets/select2/select2.min.js"></script>
+    {{-- <script src="assets/dselect-main/source/js/dselect.js"></script> --}}
+    {{-- end Select2 --}}
+
+    {{-- Dropzone --}}
+    <script src="assets/dropzone/min/dropzone.min.js"></script>
+    <script src="../assets/dropzone/min/dropzone.min.js"></script>
+    {{-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script> --}}
+    {{-- end Dropzone --}}
+
+
+    {{-- Js --}}
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="../assets/js/data.js"></script>
+    <script src="assets/user/js/main.js"></script>
+    <script src="../assets/user/js/main.js"></script>
+    {{-- end Js --}}
+
+    {{-- Masknumber --}}
+    <script src="assets/js/jquery.masknumber.js"></script>
+    <script src="../assets/js/jquery.masknumber.js"></script>
+    {{-- end Masknumber --}}
+
+    {{-- <script src="assets/dselect-main/source/js/dselect.js"></script>
+    <script src="../assets/dselect-main/source/js/dselect.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script src="../assets/js/admin.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="../assets/js/data.js"></script>
+    <script src="assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script>
+    <script src="../assets/DataTables/DataTables-1.13.6/js/jquery.dataTables.js"></script> --}}
+    {{-- <script src="assets/js/jquery-3.7.1.min.js"></script> --}}
+    {{-- <script src="assets/js/jquery.masknumber.js"></script>
+    <script src="../assets/js/jquery.masknumber.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script> --}}
 </body>
 
 </html>

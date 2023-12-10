@@ -2,15 +2,15 @@
 <header class="header z-1">
     <div class="logo">
         {{-- <img src="assets/user/images/logo-bookmark.svg" alt="logo-bookmark"> --}}
-        <h1>NailTour</h1>
+        <h1>Na'ilTour</h1>
     </div>
 
     <nav class="navbar">
         <a href="/home">Home</a>
         <a href="/catalogs">Catalogs</a>
-        <a href="#download">About</a>
-        <a href="#footer">Contact</a>
-        <a href="#" class="btn">Acount</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/account" class="btn">Account</a>
         {{-- <a href="/bookings" style="font-size: 20px;" class="booking"><i class="fa-solid fa-calendar-days"></i></a> --}}
         @php
             // $bookings = DB::table('detail_transactions')
@@ -42,6 +42,41 @@
                 </span>
             @endif
         </a>
+        <div class="ms-4" style="height: 40px; width: 40px;">
+            @if ($title == 'Booking')
+                {{-- <img class="img-fluid rounded-circle" src="../assets/img/user.jpg" alt=""> --}}
+                @if (auth()->user()->photo_profile == 'photoprofile/user.png')
+                    <img src="../assets/img/user.png" class="img-fluid rounded-circle" alt="">
+                @else
+                    <img src="{{ asset('storage/' . auth()->user()->photo_profile) }}" class="img-fluid rounded-circle"
+                        alt="">
+                @endif
+            @elseif($title == 'Deal')
+                {{-- <img class="img-fluid rounded-circle" src="../assets/img/user.jpg" alt=""> --}}
+                @if (auth()->user()->photo_profile == 'photoprofile/user.png')
+                    <img src="../assets/img/user.png" class="img-fluid rounded-circle" alt="">
+                @else
+                    <img src="{{ asset('storage/' . auth()->user()->photo_profile) }}" class="img-fluid rounded-circle"
+                        alt="">
+                @endif
+            @elseif($title == 'Catalog')
+                {{-- <img class="img-fluid rounded-circle" src="../assets/img/user.jpg" alt=""> --}}
+                @if (auth()->user()->photo_profile == 'photoprofile/user.png')
+                    <img src="../assets/img/user.png" class="img-fluid rounded-circle" alt="">
+                @else
+                    <img src="{{ asset('storage/' . auth()->user()->photo_profile) }}" class="img-fluid rounded-circle"
+                        alt="">
+                @endif
+            @else
+                {{-- <img class="img-fluid rounded-circle" src="assets/img/user.jpg" alt=""> --}}
+                @if (auth()->user()->photo_profile == 'photoprofile/user.png')
+                    <img src="assets/img/user.png" class="img-fluid rounded-circle" alt="">
+                @else
+                    <img src="{{ asset('storage/' . auth()->user()->photo_profile) }}" class="img-fluid rounded-circle"
+                        alt="">
+                @endif
+            @endif
+        </div>
     </nav>
     <div class="fas fa-bars" id="menu-btn"></div>
 

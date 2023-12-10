@@ -88,10 +88,10 @@
                     dd($result);
                 @endphp --}}
                 <h1>{{ $transaction[0]->title }}</h1>
-                <h2>Start From: Rp. {{ $transaction[0]->price }}/pax</h2>
-                <p>Location: {{ $transaction[0]->location }}</p>
-                <p>Categories: {{ $transaction[0]->categories }}</p>
-                <p>Description: {{ $transaction[0]->description }}
+                <h2>Start From: Rp. {{ number_format($transaction[0]->price, 0, ',', '.') }}/pax</h2>
+                <p class="fs-4">Location: {{ $transaction[0]->location }}</p>
+                <p class="fs-4">Categories: {{ $transaction[0]->categories }}</p>
+                <p class="fs-4">Description: {{ $transaction[0]->description }}
                 </p>
                 {{-- <p>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia dicta a tenetur magnam
                     repudiandae fugiat optio consequatur molestias, id assumenda incidunt officiis excepturi sunt! Modi
@@ -193,24 +193,33 @@
             </div>
 
         </div>
+        <hr>
         <div class="mt-4 mb-4">
             <h1>Detail Booking</h1>
-            <p style="font-size: 12px">No Transaction : {{ $transaction[0]->no_trans }}</p>
-            <p style="font-size: 12px">Tour Dates : {{ $transaction[0]->date1 }} until {{ $transaction[0]->date2 }}</p>
-            <p style="font-size: 12px">Status : {{ $transaction[0]->status }}</p>
-            <p style="font-size: 12px">Name Client : {{ $transaction[0]->name }}</p>
-            <p style="font-size: 12px">Adult Qty : {{ $transaction[0]->adult_qty }} Pax</p>
-            <p style="font-size: 12px">Child Qty : {{ $transaction[0]->child_qty }} Pax</p>
-            <p style="font-size: 12px">Transportation : {{ $transaction[0]->transportation }}</p>
+            <p class="fs-4">No Transaction : {{ $transaction[0]->no_trans_head }}</p>
+            <p class="fs-4">Tour Dates : {{ $transaction[0]->date1 }} until {{ $transaction[0]->date2 }}</p>
+            <p class="fs-4">Status : {{ $transaction[0]->status }}</p>
+            <p class="fs-4">Name Client : {{ $transaction[0]->name }}</p>
+            <p class="fs-4">Adult Qty : {{ $transaction[0]->adult_qty }} Pax</p>
+            <p class="fs-4">Child Qty : {{ $transaction[0]->child_qty }} Pax</p>
+            <p class="fs-4">Transportation : {{ $transaction[0]->transportation }}</p>
+            @if ($transaction[0]->status_head == 'Waiting Payments')
+                <p class="fs-4">Total Payments : Rp.
+                    {{ number_format($transaction[0]->total_payment_head, 0, ',', '.') }}</p>
+            @elseif($transaction[0]->status_head == 'Deals')
+                <p class="fs-4">Total Payments : Rp.
+                    {{ number_format($transaction[0]->total_payment_head, 0, ',', '.') }}</p>
+            @endif
+            <hr>
 
             <!-- Modal for booking -->
 
-            <div class="modal fade modal-custom" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal modal-lg fade modal-custom" id="exampleModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-full">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Create Booking</h1>
+                            <h1 class="modal-title fs-4" id="exampleModalLabel">Edit Booking</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" ari a-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -222,9 +231,9 @@
                                 <input type="hidden" value="{{ $transaction[0]->id }}" name="id_booking">
                                 {{-- <input type="hidden" value="{{ auth()->user()->id }}" name="id_user"> --}}
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Name Client</span>
+                                    <span class="input-group-text fs-5" id="basic-addon1">Name Client</span>
                                     <input type="text"
-                                        class="form-control @error('name')
+                                        class="form-control fs-5 @error('name')
                     is-invalid
                 @enderror"
                                         placeholder="Name Client..." aria-label="Name" aria-describedby="basic-addon1"
@@ -236,9 +245,9 @@
                                     @enderror
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Date</span>
+                                    <span class="input-group-text fs-5" id="basic-addon1">Date</span>
                                     <input type="date"
-                                        class="form-control @error('date')
+                                        class="form-control fs-5 @error('date')
                     is-invalid
                 @enderror"
                                         placeholder="Date..." aria-label="Date" aria-describedby="basic-addon1"
@@ -249,11 +258,11 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <p class="mb-3">Until</p>
+                                <p class="mb-3 fs-5">Until</p>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Date</span>
+                                    <span class="input-group-text fs-5" id="basic-addon1">Date</span>
                                     <input type="date"
-                                        class="form-control @error('date2')
+                                        class="form-control fs-5 @error('date2')
                     is-invalid
                 @enderror"
                                         placeholder="Date2..." aria-label="Date2" aria-describedby="basic-addon1"
@@ -266,17 +275,17 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <span
-                                        class="input-group-text @error('qty')
+                                        class="input-group-text fs-5 @error('qty')
                         mt-3
                     @enderror"
                                         id="basic-addon1">Qty</span>
                                     <span
-                                        class="input-group-text @error('adult_qty')
+                                        class="input-group-text fs-5 @error('adult_qty')
                         mt-3
                     @enderror"
                                         id="basic-addon1">Adult Qty</span>
                                     <input id="qty" type="text"
-                                        class="form-control @error('qty')
+                                        class="form-control fs-5 @error('qty')
                     is-invalid
                 @enderror @error('qty')
                 mt-3
@@ -284,12 +293,12 @@
                                         placeholder="Adult..." aria-label="Qty" aria-describedby="basic-addon1"
                                         name="adult_qty" value="{{ old('qty', $transaction[0]->adult_qty) }}" required>
                                     <span
-                                        class="input-group-text @error('adult_qty')
+                                        class="input-group-text fs-5 @error('adult_qty')
                         mt-3
                     @enderror"
-                                        id="basic-addon1">Child Qty</span>
+                                        id="basic-addon1 fs-5">Child Qty</span>
                                     <input id="qty2" type="text"
-                                        class="form-control @error('qty2')
+                                        class="form-control fs-5 @error('qty2')
                     is-invalid
                 @enderror @error('qty2')
                 mt-3
@@ -303,8 +312,8 @@
                                     @enderror
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">Transportation</span>
-                                    <select class="form-select" id="inputGroupSelect01"
+                                    <span class="input-group-text fs-5" id="basic-addon1">Transportation</span>
+                                    <select class="form-select fs-5" id="inputGroupSelect01"
                                         class="form-control @error('transportation')
                                 is-invalid
                             @enderror"
@@ -328,8 +337,8 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary fs-5">Save changes</button>
                             </form>
                         </div>
                     </div>
@@ -338,22 +347,23 @@
             {{-- end modal --}}
         </div>
         @if ($transaction[0]->status_head == 'Offer')
-            <button onclick="ShowModal1()" type="button" class="btn btn-primary mt-4 " data-bs-toggle="modal"
+            <button onclick="ShowModal1()" type="button" class="btn btn-primary mt-4 fs-5" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
-                Update Booking
+                Edit Booking
             </button>
-            <button type="button" class="btn btn-primary mt-4 " data-bs-toggle="modal" data-bs-target="#addoffer">
+            <button type="button" class="btn btn-primary mt-4 fs-5" data-bs-toggle="modal" data-bs-target="#addoffer">
                 Add Offer
             </button>
             <div>
                 {{-- tabel --}}
-                <div class="ms-4 mt-4 me-4 table-responsive">
-                    <table class="table table-striped" style="width:100%" id="data-tables">
+                <div class="ms-4 mt-4 me-4 table-responsive fs-5">
+                    <table class="table table-striped fs-5" style="width:100%" id="data-tables">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>File</th>
                                 <th>Date</th>
+                                <th>Total Payment</th>
                                 <th>Description</th>
                                 <th>Action</th>
                             </tr>
@@ -363,7 +373,7 @@
                             // $id = auth()->user()->id;
                             // dd($transaction[0]->id_head);
                             $offerDatas = DB::table('offers')
-                                ->select('*')
+                                ->select('offers.id as id_offer', 'offers.description', 'offers.file', 'offers.transaction_id as transaction_id_offer', 'offers.user_id as user_id_offer', 'offers.total_payment', 'offers.date', 'users.id as id_user', 'users.username', 'users.name', 'users.email', 'users.role')
                                 ->join('users', 'offers.user_id', '=', 'users.id')
                                 ->where('offers.transaction_id', '=', $transaction[0]->id_head)
                                 ->where('users.role', '=', 'officer')
@@ -374,6 +384,7 @@
                             //     ->where('transaction_id', '=', $transaction[0]->id_head)
                             //     ->get();
                             // dd($transaction[0]->id_head);
+                            // dd($offerDatas);
                         @endphp
                         {{-- @foreach ($citys as $city) --}}
                         @foreach ($offerDatas as $offerData)
@@ -381,14 +392,16 @@
                                 <td scope="row">{{ $no++ }}</td>
                                 <td scope="row"><a href="{{ asset('storage/' . $offerData->file) }}"
                                         target="_blank">{{ basename($offerData->file) }}</a></td>
-                                <td scope="row">2023-11-17</td>
+                                <td scope="row">{{ $offerData->date }}</td>
+                                <td scope="row">Rp. {{ number_format($offerData->total_payment, 0, ',', '.') }}</td>
                                 <td scope="row">{{ $offerData->description }}</td>
+                                {{-- <td scope="row">{{ $offerData->id_offer }}</td> --}}
                                 {{-- <td>{{ $city->id }}</td> --}}
                                 {{-- <td>{{ $city->name }}</td>
                         <td>{{ $city->province }}</td> --}}
                                 <td>
                                     <a type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#acceptoffer{{ $offerData->id }}">
+                                        data-bs-target="#acceptoffer{{ $offerData->id_offer }}">
                                         {{-- <i class="fa-solid fa-pen-to-square"></i> --}}
                                         <i class="fa-solid fa-check text-white"></i>
                                     </a>
@@ -416,7 +429,11 @@
         @elseif($transaction[0]->status_head == 'On Process')
 
         @elseif($transaction[0]->status_head == 'Waiting Payments')
-            <button type="button" class="btn btn-primary mt-4 " data-bs-toggle="modal" data-bs-target="#payment">
+            <h1>Payment Method</h1>
+            <p class="fs-4">Payment Method : {{ $transactionPayments[0]->payment_name }}</p>
+            <p class="fs-4">Description : {{ $transactionPayments[0]->payment_description }}</p>
+
+            <button type="button" class="btn btn-primary mt-4 fs-5" data-bs-toggle="modal" data-bs-target="#payment">
                 Add Proof Of Payment
             </button>
 
@@ -425,7 +442,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Proof Of Payment</h1>
+                            <h1 class="modal-title fs-4" id="exampleModalLabel">Add Proof Of Payment</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -433,11 +450,12 @@
                             <form action="/addproof" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <input type="hidden" value="{{ $transaction[0]->id_head }}" name="id_transaction">
+                                <input type="hidden" value="{{ $transactionPayments[0]->id_head }}"
+                                    name="id_transaction">
                                 <div class="input-group mb-3">
                                     {{-- <span class="input-group-text" id="basic-addon1">Name</span> --}}
                                     <input type="file"
-                                        class="form-control @error('proof')
+                                        class="form-control fs-5 @error('proof')
                                     is-invalid
                                 @enderror"
                                         placeholder="Proof" aria-label="Proof" aria-describedby="basic-addon1"
@@ -450,20 +468,27 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary fs-5">Add proof</button>
                         </div>
                         </form>
                     </div>
                 </div>
             </div>
         @elseif($transaction[0]->status_head == 'Deals')
-            <a class="btn btn-primary" href="/print-proof/{{ $transaction[0]->no_trans }}">Print Proof</a>
+            <a class="btn btn-primary mb-2 fs-5" href="/print-proof/{{ $transaction[0]->no_trans_head }}"
+                target="_blank">Print
+                Proof</a>
+            <hr>
+            <h1>Further Information</h1>
+            <p class="fs-4"><i class="fa-solid fa-phone"></i> : 0272.29522671</p>
+            <p class="fs-4"><i class="fa-brands fa-whatsapp"></i> : 085779955999</p>
         @endif
 
 
         @php
             $no = 1;
+            // dd($transaction);
             // $id = auth()->user()->id;
             // dd($transaction[0]->id_head);
             // $offerDatas2 = DB::table('offers')
@@ -472,19 +497,20 @@
             //     ->where('transaction_id', '=', $transaction[0]->id_head)
             //     ->get();
             $offerDatas2 = DB::table('offers')
-                ->select('*')
+                ->select('offers.id as id_offer', 'offers.description', 'offers.file', 'offers.transaction_id as transaction_id_offer', 'offers.user_id as user_id_offer', 'offers.total_payment', 'offers.date', 'users.id as id_user', 'users.username', 'users.name', 'users.email', 'users.role')
                 ->join('users', 'offers.user_id', '=', 'users.id')
                 ->where('offers.transaction_id', '=', $transaction[0]->id_head)
                 ->where('users.role', '=', 'officer')
                 ->get();
+            // dd($offerDatas2);
         @endphp
         @foreach ($offerDatas2 as $offerData2)
-            <div class="modal fade" id="acceptoffer{{ $offerData2->id }}" tabindex="-1"
+            <div class="modal fade" id="acceptoffer{{ $offerData2->id_offer }}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Chose Payments</h1>
+                            <h1 class="modal-title fs-4" id="exampleModalLabel">Chose Payments</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -505,17 +531,18 @@
                                 @enderror
                             </div> --}}
                                 <input type="hidden" name="transaction_id" value="{{ $transaction[0]->id_head }}">
-                                <input type="hidden" name="offer_id" value="{{ $offerData2->id }}">
+                                <input type="hidden" name="offer_id" value="{{ $offerData2->id_offer }}">
                                 <input type="hidden" name="oldFile" value="{{ $offerData2->file }}">
+                                <input type="hidden" name="total_payment" value="{{ $offerData2->total_payment }}">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <input type="hidden" name="no_trans" value="{{ $transaction[0]->no_trans_head }}">
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                                    <label class="input-group-text fs-5" for="inputGroupSelect01">Options</label>
                                     <select
-                                        class="form-select @error('provinces_id')
+                                        class="form-select fs-5 @error('provinces_id')
                                     is-invalid
                                 @enderror"
-                                        id="inputGroupSelect01" name="payment_id">
+                                        id="inputGroupSelect01" name="payment_id" required>
                                         <option selected>Choose...</option>
                                         @foreach ($payments as $payment)
                                             <option value="{{ $payment->id }}">{{ $payment->name }}</option>
@@ -531,8 +558,8 @@
                                 </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary fs-5">Confirm offer and payment</button>
                             </form>
                         </div>
                     </div>
@@ -544,7 +571,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Offer</h1>
+                        <h1 class="modal-title fs-4" id="exampleModalLabel">Add Offer</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -567,11 +594,11 @@
                             <input type="hidden" name="no_trans" value="{{ $transaction[0]->no_trans_head }}">
                             <div class="form-floating mb-3">
                                 <textarea
-                                    class="form-control @error('description')
+                                    class="form-control fs-5 @error('description')
                                     is-invalid
                                     @enderror"
                                     placeholder="Leave a comment here" id="floatingTextarea2" name="description" style="height: 100px" required></textarea>
-                                <label for="floatingTextarea2">Description</label>
+                                <label for="floatingTextarea2" class="fs-5">Description</label>
                                 @error('description')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -580,8 +607,8 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Offer</button>
+                        <button type="button" class="btn btn-secondary fs-5" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary fs-5">Add Offer</button>
                         </form>
                     </div>
                 </div>

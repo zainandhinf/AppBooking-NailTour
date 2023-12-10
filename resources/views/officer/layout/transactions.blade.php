@@ -22,11 +22,13 @@
                     <th>Adult Qty</th>
                     <th>Child Qty</th>
                     <th>Transportation</th>
+                    <th>Total Payment</th>
                     <th>Action</th>
                 </tr>
             </thead>
             @php
                 $no = 1;
+                // dd($transactions1);
             @endphp
             @foreach ($transactions1 as $transaction)
                 <tr>
@@ -41,6 +43,7 @@
                     <td>{{ $transaction->adult_qty }}</td>
                     <td>{{ $transaction->child_qty }}</td>
                     <td>{{ $transaction->transportation }}</td>
+                    <td>{{ number_format($transaction->total_payment, 0, ',', '.') }}</td>
                     <td>
                         {{-- <a type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#exampleModal1{{ $transaction->id }}">
@@ -75,6 +78,7 @@
                     <td>{{ $transaction2->adult_qty }}</td>
                     <td>{{ $transaction2->child_qty }}</td>
                     <td>{{ $transaction2->transportation }}</td>
+                    <td>{{ number_format($transaction2->total_payment, 0, ',', '.') }}</td>
                     <td>
                         <a href="/officer-transactions/{{ $transaction2->no_trans }}" type="button"
                             class="btn btn-primary">
@@ -113,6 +117,7 @@
                     <td>{{ $transaction3->adult_qty }}</td>
                     <td>{{ $transaction3->child_qty }}</td>
                     <td>{{ $transaction3->transportation }}</td>
+                    <td>Rp. {{ number_format($transaction3->total_payment, 0, ',', '.') }}</td>
                     <td>
                         <a href="/officer-transactions/{{ $transaction3->no_trans }}" type="button"
                             class="btn btn-primary">
@@ -152,6 +157,7 @@
                     <td>{{ $transaction4->adult_qty }}</td>
                     <td>{{ $transaction4->child_qty }}</td>
                     <td>{{ $transaction4->transportation }}</td>
+                    <td>Rp. {{ number_format($transaction4->total_payment, 0, ',', '.') }}</td>
                     <td>
                         <a href="/officer-transactions/{{ $transaction4->no_trans }}" type="button"
                             class="btn btn-primary">

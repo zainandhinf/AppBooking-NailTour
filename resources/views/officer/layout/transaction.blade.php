@@ -21,6 +21,7 @@
                     <th>Description</th>
                     {{-- <th>Image</th> --}}
                     <th>File</th>
+                    <th>Total Payment</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -29,7 +30,7 @@
                 $id = auth()->user()->id;
                 // dd($transaction[0]->id_head);
                 $offerDatas1 = DB::table('offers')
-                    ->select('*')
+                    ->select('offers.id as id_offer', 'offers.description', 'offers.file', 'offers.transaction_id as transaction_id_offer', 'offers.user_id as user_id_offer', 'offers.total_payment', 'offers.date')
                     ->where('user_id', '=', $id)
                     ->where('transaction_id', '=', $transaction[0]->id_head)
                     ->get();
@@ -43,16 +44,18 @@
                     <td><a href="{{ asset('storage/' . $offerData->file) }}"
                             target="_blank">{{ basename($offerData->file) }}</a></td>
                     {{-- <td><a href="{{ url('' . $offerData->file) }}">Nama File</a></td> --}}
+                    <td>Rp. {{ number_format($offerData->total_payment, 0, ',', '.') }}</td>
                     {{-- <td>{{ $offerData->file }}</td> --}}
                     <td>
                         <a type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#offeredit{{ $offerData->id }}">
+                            data-bs-target="#offeredit{{ $offerData->id_offer }}"
+                            onclick="ShowModaledit('{{ $offerData->id_offer }}')">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <form action="/deleteoffer" class="d-flex d-inline mt-1" method="POST">
                             @method('delete')
                             @csrf
-                            <input type="hidden" id="" name="id_offer" value="{{ $offerData->id }}">
+                            <input type="hidden" id="" name="id_offer" value="{{ $offerData->id_offer }}">
                             <button class="btn btn-danger"
                                 onclick="return confirm('Are you sure you want to delete booking?')">
                                 <i class="fa-solid fa-trash"></i>
@@ -131,6 +134,27 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="input-group mb-3">
+                            <span
+                                class="input-group-text @error('total_payment')
+                                    mt-3
+                                @enderror"
+                                id="basic-addon1">Total payment</span>
+                            <span class="input-group-text " id="basic-addon1">Rp</span>
+                            <input id="total_payment" type="text"
+                                class="form-control @error('total_payment')
+                                is-invalid
+                            @enderror @error('total_payment')
+                            mt-3
+                        @enderror"
+                                placeholder="Total payment..." aria-label="Total_payment" aria-describedby="basic-addon1"
+                                name="total_payment" required>
+                            @error('total_payment')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -141,7 +165,8 @@
         </div>
     </div>
 
-    <div class="modal fade modal-lg" id="offeruser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modal-lg" id="offeruser" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -228,11 +253,11 @@
                     {{-- {{ $transaction[0]->proof }} --}}
                     <img src="{{ asset('storage/' . $transaction[0]->proof) }}" alt="" class="img-fluid">
                 </div>
-                <div class="modal-footer">
+                {{-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -242,18 +267,18 @@
         $id = auth()->user()->id;
         // dd($transaction[0]->id_head);
         $offerDatas2 = DB::table('offers')
-            ->select('*')
+            ->select('offers.id as id_offer', 'offers.description', 'offers.file', 'offers.transaction_id as transaction_id_offer', 'offers.user_id as user_id_offer', 'offers.total_payment', 'offers.date')
             ->where('user_id', '=', $id)
             ->where('transaction_id', '=', $transaction[0]->id_head)
             ->get();
     @endphp
     @foreach ($offerDatas2 as $offerData2)
-        <div class="modal fade" id="offeredit{{ $offerData2->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="offeredit{{ $offerData2->id_offer }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Offer</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Offer</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -273,7 +298,7 @@
                                 @enderror
                             </div> --}}
                             <input type="hidden" name="transaction_id" value="{{ $transaction[0]->id_head }}">
-                            <input type="hidden" name="offer_id" value="{{ $offerData2->id }}">
+                            <input type="hidden" name="offer_id" value="{{ $offerData2->id_offer }}">
                             <input type="hidden" name="oldFile" value="{{ $offerData2->file }}">
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                             <input type="hidden" name="no_trans" value="{{ $transaction[0]->no_trans_head }}">
@@ -310,6 +335,50 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="input-group mb-3">
+                                <span
+                                    class="input-group-text @error('total_payment')
+                                        mt-3
+                                    @enderror"
+                                    id="basic-addon1">Total payment</span>
+                                <span class="input-group-text " id="basic-addon1">Rp</span>
+                                <input id="total_payment2{{ $offerData2->id_offer }}" type="text"
+                                    class="form-control @error('total_payment')
+                                    is-invalid
+                                @enderror @error('total_payment')
+                                mt-3
+                            @enderror"
+                                    placeholder="Total payment..." aria-label="Total_payment"
+                                    aria-describedby="basic-addon1" name="total_payment"
+                                    value="{{ old('total_payment', number_format($offerData2->total_payment, 0, ',', '.')) }}"
+                                    required>
+                                @error('total_payment')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            {{-- <div class="input-group mb-3">
+                                <span
+                                    class="input-group-text @error('price')
+                                    mt-3
+                                @enderror"
+                                    id="basic-addon1">Starting price</span>
+                                <span class="input-group-text " id="basic-addon1">Rp</span>
+                                <input id="price" type="text"
+                                    class="form-control @error('price')
+                                is-invalid
+                            @enderror @error('location')
+                            mt-3
+                        @enderror"
+                                    placeholder=" Starting price..." aria-label="Price" aria-describedby="basic-addon1"
+                                    name="price" required>
+                                @error('price')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -332,5 +401,27 @@
         $(document).ready(function() {
             $('#data-tables-2').DataTable();
         });
+
+        $(document).ready(function() {
+            $("#total_payment").keyup(function() {
+                $(this).maskNumber({
+                    integer: true,
+                    thousands: "."
+                })
+            })
+        });
+
+        function ShowModaledit(offerId) {
+            var total_payment = "#total_payment2" + offerId;
+            // console.log(total_payment);
+            $(document).ready(function() {
+                $(total_payment).keyup(function() {
+                    $(this).maskNumber({
+                        integer: true,
+                        thousands: "."
+                    })
+                })
+            });
+        }
     </script>
 @endsection

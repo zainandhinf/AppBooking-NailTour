@@ -20,8 +20,17 @@ use App\Models\User;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view(
+        'index',
+        [
+            "title" => "Make Your Tour Schedule"
+        ]
+    );
 });
 
 
@@ -29,12 +38,16 @@ Route::get('/', function () {
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth');
 Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->middleware('auth');
 Route::get('/admin-officer', [AdminController::class, 'officer'])->middleware('auth');
+Route::get('/admin-user', [AdminController::class, 'user'])->middleware('auth');
 Route::get('/admin-provinces', [AdminController::class, 'provinces'])->middleware('auth');
 Route::get('/admin-city', [AdminController::class, 'city'])->middleware('auth');
 Route::get('/admin-countries', [AdminController::class, 'country'])->middleware('auth');
 Route::get('/admin-catalog', [AdminController::class, 'catalog'])->middleware('auth');
 Route::get('/admin-transportations', [AdminController::class, 'transportation'])->middleware('auth');
 Route::get('/admin-payments', [AdminController::class, 'payment'])->middleware('auth');
+Route::get('/admin-transactions', [AdminController::class, 'transactions'])->middleware('auth');
+Route::get('/admin-transactions/{no_trans}', [AdminController::class, 'transaction'])->middleware('auth');
+Route::get('/admin-reports', [AdminController::class, 'reports'])->middleware('auth');
 // Route::get('/admin-catalognational', [AdminController::class, 'catalog'])->middleware('auth');
 // Route::get('/admin-cataloginternational', [AdminController::class, 'catalog2'])->middleware('auth');
 //
@@ -46,6 +59,7 @@ Route::get('/admin-payments', [AdminController::class, 'payment'])->middleware('
 // crud admin
 Route::post('/uploadofficer', [AdminController::class, 'UploadOfficer']);
 Route::put('/updateofficer', [AdminController::class, 'UpdateOfficer']);
+Route::put('/editpassword', [AdminController::class, 'EditPassword']);
 Route::delete('/deleteofficer', [AdminController::class, 'DeleteOfficer']);
 
 Route::post('/uploadprovinces', [AdminController::class, 'UploadProvinces']);
@@ -88,8 +102,10 @@ Route::delete('/deletepayments', [AdminController::class, 'DeletePayment']);
 // Route::get('/file/{filename}', [AdminController::class, 'FileShow']);
 
 
-Route::get('/login', [AdminController::class, 'loginAdmin'])->name('login');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/signup', [LoginController::class, 'signup'])->name('signup');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/signup', [LoginController::class, 'createaccount']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 
@@ -113,18 +129,25 @@ Route::group(['middleware' => 'admin'], function () {
 Route::get('/home', [UserController::class, 'home'])->middleware('auth');
 Route::get('/catalogs', [UserController::class, 'catalogs'])->middleware('auth');
 Route::get('/catalog/{slug}', [UserController::class, 'preview'])->middleware('auth');
+Route::get('/about', [UserController::class, 'about'])->middleware('auth');
+Route::get('/contact', [UserController::class, 'contact'])->middleware('auth');
 Route::get('/bookings', [UserController::class, 'bookings'])->middleware('auth');
 Route::get('/booking/{no_trans}', [UserController::class, 'booking'])->middleware('auth');
 Route::get('/deals', [UserController::class, 'deals'])->middleware('auth');
 Route::get('/deal/{no_trans}', [UserController::class, 'deal'])->middleware('auth');
+Route::get('/account', [UserController::class, 'account'])->middleware('auth');
 Route::get('/print-proof/{no_trans}', [UserController::class, 'printproof'])->middleware('auth');
 
 //crud user
-Route::post('/createbooking', [UserController::class, 'createbooking']);
+// Route::post('/createbooking', [UserController::class, 'createbooking']);
+Route::post('/createbooking/{confirm}', [UserController::class, 'createbooking']);
+Route::get('/createbooking/yes/{id_catalog}/{slug}/{id_user}/{name}/{date}/{date2}/{qtyadult}/{qtychild}/{transportation}', [UserController::class, 'createbookingyes']);
 Route::put('/updatebooking', [UserController::class, 'updatebooking']);
 Route::put('/addpaymentuser', [UserController::class, 'addpaymentuser']);
 Route::put('/addproof', [UserController::class, 'addproof']);
 Route::post('/addofferuser', [UserController::class, 'addoffer']);
+Route::put('/editprofile', [UserController::class, 'editprofile']);
+Route::put('/editpassworduser', [UserController::class, 'EditPassword']);
 
 //page officer
 Route::get('/officer', [OfficerController::class, 'index'])->middleware('auth');
@@ -134,6 +157,10 @@ Route::get('/officer-transactions/{no_trans}', [OfficerController::class, 'trans
 Route::get('/officer-reports', [OfficerController::class, 'reports'])->middleware('auth');
 Route::post('/print-reports', [OfficerController::class, 'printreports'])->middleware('auth');
 Route::get('/print-report/{no_trans}', [OfficerController::class, 'printreport'])->middleware('auth');
+Route::get('/officer-user', [OfficerController::class, 'user'])->middleware('auth');
+Route::get('/officer-catalog', [OfficerController::class, 'catalog'])->middleware('auth');
+Route::get('/officer-transportations', [OfficerController::class, 'transportation'])->middleware('auth');
+Route::get('/officer-payments', [OfficerController::class, 'payment'])->middleware('auth');
 
 //crud officer
 Route::put('/acceptbooking', [OfficerController::class, 'acceptbooking']);

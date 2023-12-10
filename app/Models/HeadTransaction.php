@@ -9,5 +9,5 @@ class HeadTransaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['no_trans', 'date', 'status'];
+    protected $fillable = ['no_trans', 'date', 'total_payment', 'status'];
 }

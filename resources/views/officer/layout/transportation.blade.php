@@ -1,11 +1,16 @@
-@extends('admin.main')
+@extends('officer.main')
 
 @section('content')
     <!-- Modal -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    {{-- <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Transportation Data
     </button>
+    @if (session()->has('success'))
+        <div class="alert alert-success mt-1 mb-1" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif --}}
     {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -39,7 +44,7 @@
             </div>
         </div>
     </div> --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,18 +73,18 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
-                </div>
-                {{-- <button onclick="zzz()" type="button" class="btn btn-primary mt-4 ms-4 me-4" id="myButton">
+                </div> --}}
+    {{-- <button onclick="zzz()" type="button" class="btn btn-primary mt-4 ms-4 me-4" id="myButton">
                     zzzz
                 </button> --}}
-            </div>
+    {{-- </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end modal --}}
 
     {{-- tabel --}}
-    <div class="ms-4 mt-2 me-4">
-        <table class="display" id="data-tables">
+    <div class="mt-2 table-responsive">
+        <table class="table table-striped" style="width:100%" id="data-tables">
             <thead>
                 <tr>
                     <th>No</th>
@@ -96,7 +101,7 @@
                     {{-- <td>{{ $province->id }}</td> --}}
                     <td>{{ $transportation->name }}</td>
                     <td>
-                        <a type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        <a type="button" class="btn btn-primary mb-1 mt-1" data-bs-toggle="modal"
                             data-bs-target="#exampleModal1{{ $transportation->id }}">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
@@ -120,9 +125,9 @@
     {{-- end tabel --}}
 
     {{-- edit --}}
-    @foreach ($transportations as $transportation)
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal1{{ $transportation->id }}" tabindex="-1"
+    {{-- @foreach ($transportations as $transportation) --}}
+    <!-- Modal -->
+    {{-- <div class="modal fade" id="exampleModal1{{ $transportation->id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -155,7 +160,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @endforeach --}}
     {{-- end edit --}}
 
 

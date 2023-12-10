@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->date('date');
             // $table->string('id_catalog');
             // $table->string('qty');
+            $table->integer('total_payment')->nullable();
             $table->string('status');
             $table->timestamps();
         });

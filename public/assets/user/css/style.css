@@ -13,10 +13,10 @@
     text-decoration: none;
 }
 
-::selection {
+/* ::selection {
     background-color: var(--Soft-Red);
     color: #fff;
-}
+} */
 
 
 ::-webkit-scrollbar {
@@ -76,7 +76,8 @@ html {
 
 :root {
     --Soft-Blue: hsl(231, 69%, 60%);
-    --Soft-Red: hsl(0, 94%, 66%);
+    /* --Soft-Red: hsl(0, 94%, 66%); */
+    --Soft-Red: #5368DF;
     --Grayish-Blue: hsl(229, 8%, 60%);
     --Very-Dark-Blue: hsl(229, 31%, 21%);
     --box-shadow: .5rem .5rem 0 hsl(231, 69%, 60%);
@@ -675,4 +676,82 @@ svg {
 
 .link-head a:hover {
     color: var(--Soft-Red);
+}
+
+.card-user {
+    width: 500px;
+    height: 500px;
+    /* background-image: var(--Soft-Red); */
+    /* background-image: linear-gradient(144deg, #8608b4, #492fed 60%, #bd6fda); */
+    /* background-image: linear-gradient(144deg, var(--Soft-Red), #b900ad 60%, var(--Soft-Red)); */
+    background-image: linear-gradient(144deg, #fff, #fff 60%, #fff);
+    border: none;
+    border-radius: 10px;
+    padding-top: 10px;
+    position: relative;
+    margin: auto;
+    font-family: inherit;
+}
+
+.card-user span {
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    display: block;
+    padding-top: 10px;
+    font-size: 4em;
+}
+
+.card-user .job-user {
+    font-weight: 400;
+    color: white;
+    display: block;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 1em;
+}
+
+.card-user .img-user {
+    width: 150px;
+    height: 150px;
+    background: #e8e8e8;
+    border-radius: 100%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.card-user button {
+    padding: 8px 25px;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    margin-top: 30px;
+    background: #e8e8e8;
+    color: #111111;
+    font-weight: 600;
+}
+
+.card-user a {
+    width: 30%;
+    padding: 8px 25px;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    border: none;
+    margin-top: 30px;
+    background: #e8e8e8;
+    color: #111111;
+    font-weight: 600;
+}
+
+.card-user button:hover {
+    background: #212121;
+    color: #ffffff;
+}
+
+.card-user a:hover {
+    background: #212121;
+    color: #ffffff;
+    cursor: pointer;
 }

@@ -45,7 +45,7 @@
                         </td>
                         <td>{{ $catalog->title }}</td>
                         <td>{{ $catalog->location }}</td>
-                        <td>Rp {{ $catalog->price }}</td>
+                        <td>Rp {{ number_format($catalog->price, 0, ',', '.') }}</td>
                         <td>{{ $catalog->description }}</td>
                         <td>{{ $catalog->categories }}</td>
                         <td>
@@ -278,7 +278,7 @@
                             <input id="price" type="text"
                                 class="form-control @error('price')
                             is-invalid
-                        @enderror @error('location')
+                        @enderror @error('price')
                         mt-3
                     @enderror"
                                 placeholder=" Starting price..." aria-label="Price" aria-describedby="basic-addon1"
@@ -720,10 +720,11 @@
                             @enderror"
                                     id="basic-addon1">Starting price</span>
                                 <span class="input-group-text " id="basic-addon1">Rp</span>
-                                <input value="{{ old('price', $catalog->price) }}" id="price2" type="text"
+                                <input value="{{ old('price', number_format($catalog->price, 0, ',', '.')) }}"
+                                    id="price2{{ $catalog->id }}" type="text"
                                     class="form-control @error('price')
                             is-invalid
-                        @enderror @error('location')
+                        @enderror @error('price')
                         mt-3
                     @enderror"
                                     placeholder=" Starting price..." aria-label="Price" aria-describedby="basic-addon1"
@@ -1079,14 +1080,7 @@
             })
         });
 
-        $(document).ready(function() {
-            $("#price2").keyup(function() {
-                $(this).maskNumber({
-                    integer: true,
-                    thousands: "."
-                })
-            })
-        });
+
 
         // // Dapatkan elemen <select> berdasarkan ID
         // const selectElement = document.getElementById('cbCity');
@@ -1274,6 +1268,7 @@
             var select = ".select2" + catalogId;
             var fortitle = "#titleinput3" + catalogId;
             var forslug = "#sluginput3" + catalogId;
+            var price = "#price2" + catalogId;
             console.log(modalInput);
 
             // $(modalInput).ready(function() {
@@ -1295,6 +1290,15 @@
                         .then(data => slug3.value = data.slug3)
                     // console.log(response);
                 });
+            });
+
+            $(document).ready(function() {
+                $(price).keyup(function() {
+                    $(this).maskNumber({
+                        integer: true,
+                        thousands: "."
+                    })
+                })
             });
 
 
